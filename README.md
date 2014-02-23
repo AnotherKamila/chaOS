@@ -26,14 +26,20 @@ None. Yet.
 
 Unless you are interested in what I think I know and what I think I should do, do not read any further. Also, if you think what I think I know is wrong, please please please let me know.
 
-notes.txt
----------
+"notes.txt"
+-----------
 
 Right now I have a STM32F051R8 MCU (on a Discovery board). That might or might not change in the future.
 
-TODO:
+No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my current HW or anything I could easily upgrade to won't have virtual memory, and my current HW won't have any form of memory protection (which makes all the user-mode stuff somewhat useless, but hey, it's just for learning purposes.)) Using a CPU instead of an MCU sounds scary to me, so I am planning to live with that.
+
+### TODO:
+
+ - figure out:
+   - how to run two things without an MMU  **✔**
+   - where to run my programs from and how to do it (flash/RAM/external data storage?)
  - crosscompiler for bare metal target (`arm-none-eabi-*`)  **✔**
- - blink LEDs
+ - blink LEDs  **✔**
  - blink LEDs with complete understanding and control of what happened
    - write a correct ld script
    - avoid the library (note: is that NIH or is it actually a good idea for a change?)
