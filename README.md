@@ -40,6 +40,7 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
    - where to run my programs from and how to do it (flash/RAM/external data storage?)
  - crosscompiler for bare metal target (`arm-none-eabi-*`)  **✔**
  - blink LEDs  **✔**
+ - find out how to setup remote debugging with gdb  **✔**
  - blink LEDs with complete understanding and control of what happened
    - write a correct ld script
    - avoid the library (note: is that NIH or is it actually a good idea for a change?)
