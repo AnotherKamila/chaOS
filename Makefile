@@ -9,7 +9,7 @@ SIZE=arm-none-eabi-size
 CFLAGS  = -lm -W -Wall -Wextra -O2
 CFLAGS += -mcpu=$(CPU) -mthumb
 
-LDFLAGS = -T$(LDSCRIPT) -nostdlib
+LDFLAGS = -T$(LDSCRIPT) -nostartupfiles
 
 DEBUG_CFLAGS = -g3 -O0
 
