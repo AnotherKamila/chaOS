@@ -3,17 +3,19 @@
  * IRQ handlers
  */
 
+#include <stdint.h>
+
 /* linker-supplied addresses */
 extern void _estack(void);
-extern unsigned long _sidata;
-extern unsigned long _sdata;
-extern unsigned long _edata;
-extern unsigned long _sbss;
-extern unsigned long _ebss;
+extern uint32_t _sidata;
+extern uint32_t _sdata;
+extern uint32_t _edata;
+extern uint32_t _sbss;
+extern uint32_t _ebss;
 
 extern int main(void);
 
-void start(void);
+void _start(void);
 
 // so that the CPU state can be examined after an unexpected interrupt
 void nmi_handler      (void) { while (1) ; }
@@ -22,17 +24,17 @@ void hardfault_handler(void) { while (1) ; }
 /* vectors table */
 // TODO when IRQ handlers are needed, they should obviously go somewhere
 // else (and a mechanism to do that will be needed)
-unsigned int * vectors[]
+uint32_t * vectors[]
 __attribute__ ((section(".isr_vector"))) = {  // stuff this in first (at 0x0)
-    (unsigned int *) _estack,           // stack top
-    (unsigned int *) start,             // entry point
-    (unsigned int *) nmi_handler,
-    (unsigned int *) hardfault_handler
+    (uint32_t *) _estack,           // stack top
+    (uint32_t *) _start,             // entry point
+    (uint32_t *) nmi_handler,
+    (uint32_t *) hardfault_handler
 };
 
 /* copies/initializes data and enters `main` */
-void start(void) {
-    unsigned long *src, *dst;
+void _start(void) {
+    uint32_t *src, *dst;
 
     // copy .data section to RAM
     src = &_sidata;
