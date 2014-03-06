@@ -8,17 +8,18 @@ SIZE=arm-none-eabi-size
 
 CFLAGS  = -lm -W -Wall -Wextra -O2
 CFLAGS += -mcpu=$(CPU) -mthumb
+CFLAGS += -I.
 
 LDFLAGS = -T$(LDSCRIPT) -nostartupfiles
 
 DEBUG_CFLAGS = -g3 -O0
 
-SRCS = $(wildcard *.c) $(wildcard **/*.c)
+SRCS = $(shell find -name '*.c')
 OBJS = $(SRCS:.c=.o)
 
 # --------------------------------------------------------
 
-ifeq ($(DEBUG), 1)
+ifeq ($(NODEBUG),)
 	CFLAGS += $(DEBUG_CFLAGS)
 endif
 
