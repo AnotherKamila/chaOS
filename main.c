@@ -1,17 +1,11 @@
-#include "vendor/stm32f0xx.h"
+#include "device/stm32f0.h"
 
 int main(void) {
-
-    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;  // enable clock on GPIOC
-    
-    GPIOC->MODER = (1 << 16) | (1 << 18);
-
-    int i = 0;
+    RCC->AHBENR |= (1 << RCC_AHBENR_GPIOC_BIT);  // enable clock on GPIOC
+    GPIOC->MODER = (1 << 2*8);  // set port 8 as output
     while (1) {
-        if (++i == 1000000) {
-            i = 0;
-            GPIOC->ODR ^= (1 << 8);
-        }
+        int i = 0; while (++i < 200000) ;
+        GPIOC->ODR ^= (1 << 8);
     }
 
     return 0;

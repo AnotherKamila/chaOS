@@ -3,51 +3,42 @@
  * IRQ handlers
  */
 
-#include <stdint.h>
+#include "core.h"
+#include "binfmt/util.h"
 
 /* linker-supplied addresses */
 extern void _estack(void);
-extern uint32_t _sidata;
-extern uint32_t _sdata;
-extern uint32_t _edata;
-extern uint32_t _sbss;
-extern uint32_t _ebss;
+extern word _sidata;
+extern word _sdata;
+extern word _edata;
+extern word _sbss;
+extern word _ebss;
 
 extern int main(void);
 
-void _start(void);
+static void _start(void) __attribute__((noreturn));
 
 // so that the CPU state can be examined after an unexpected interrupt
-void nmi_handler      (void) { while (1) ; }
-void hardfault_handler(void) { while (1) ; }
+static void nmi_handler      (void) { while (1) ; }
+static void hardfault_handler(void) { while (1) ; }
 
 /* vectors table */
 // TODO when IRQ handlers are needed, they should obviously go somewhere
 // else (and a mechanism to do that will be needed)
-uint32_t * vectors[]
+word* vectors[]
 __attribute__ ((section(".isr_vector"))) = {  // stuff this in first (at 0x0)
-    (uint32_t *) _estack,           // stack top
-    (uint32_t *) _start,             // entry point
-    (uint32_t *) nmi_handler,
-    (uint32_t *) hardfault_handler
+    (word*) _estack,           // stack top
+    (word*) _start,            // entry point
+    (word*) nmi_handler,       // NMI handler
+    (word*) hardfault_handler  // hardfault handler
 };
 
 /* copies/initializes data and enters `main` */
 void _start(void) {
-    uint32_t *src, *dst;
-
-    // copy .data section to RAM
-    src = &_sidata;
-    dst = &_sdata;
-    while (dst < &_edata)
-        *(dst++) = *(src++);
-
-    // initialize .bss section
-    dst = &_sbss;
-    while (dst < &_ebss)
-        *(dst++) = 0;
+    copy_region(&_sidata, &_sdata, &_edata);  // copy .data section to RAM
+    padzero(&_sbss, &_ebss);  // initialize .bss section
 
     main();
 
-    while (1) ;
+    while (1) ;  /* TODO vypni periferie a sleep */
 }

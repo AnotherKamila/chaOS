@@ -1,9 +1,9 @@
 MEMORY
 {
   FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 64K
-  RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
+  SRAM  (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
 }
-_estack = ORIGIN(RAM) + LENGTH(RAM);
+_estack = ORIGIN(SRAM) + LENGTH(SRAM);
 
 _min_stack_sz = 256;
 PROVIDE(_stack_limit = _estack - _min_stack_sz);
@@ -31,7 +31,7 @@ SECTIONS {
         *(.RAMtext)
 
         _edata = .;
-    } >RAM
+    } >SRAM
     
     .bss : {
         _sbss = .;
@@ -41,12 +41,12 @@ SECTIONS {
         *(COMMON)
 
         _ebss = .;
-    } >RAM
+    } >SRAM
 
     /* --- Cause an error if there is not enough RAM left for the stack ----- */
-    ._usrstack : {
+    ._stack : {
         . += _min_stack_sz;
-    } >RAM
+    } >SRAM
 
     /* --- Debug info ------------------------------------------------------- */
     .stab          0 : { *(.stab) }
