@@ -13,8 +13,6 @@
 
 /* --- reset and clock control ---------------------------------------------- */
 
-#define RCC_BASE  (AHBPERIPH_BASE + 0x00001000)
-
 typedef struct {
     IO uint32_t CR;        // clock control register                 offset 0x00
     IO uint32_t CFGR;      // clock configuration register           offset 0x04
@@ -32,19 +30,15 @@ typedef struct {
     IO uint32_t CR2;       // clock control register 2               offset 0x34
 } RCC_struct;
 
-#define RCC  ((RCC_struct*)RCC_BASE)
-
 typedef enum {
     RCC_AHBENR_GPIOA_BIT = 17,  // GPIOA clock enable bit
     RCC_AHBENR_GPIOB_BIT = 18,  // GPIOB clock enable bit
-    RCC_AHBENR_GPIOC_BIT = 19   // GPIOC clock enable bit
-} RCC_register_bits;
+    RCC_AHBENR_GPIOC_BIT = 19,  // GPIOC clock enable bit
+} RCC_ahbenr_bit;
+
+#define RCC  ((RCC_struct*)(AHBPERIPH_BASE + 0x00001000))
 
 /* --- GPIO ----------------------------------------------------------------- */
-
-#define GPIOA_BASE  (AHB2PERIPH_BASE + 0x00000000)
-#define GPIOB_BASE  (AHB2PERIPH_BASE + 0x00000400)
-#define GPIOC_BASE  (AHB2PERIPH_BASE + 0x00000800)
 
 typedef struct {
     IO uint32_t MODER;       // mode register                   offset 0x00
@@ -63,8 +57,47 @@ typedef struct {
     uint16_t    RESERVED3;   // reserved
 } GPIO_struct;
 
-#define GPIOA  ((GPIO_struct*)GPIOA_BASE)
-#define GPIOB  ((GPIO_struct*)GPIOB_BASE)
-#define GPIOC  ((GPIO_struct*)GPIOC_BASE)
+typedef enum {
+    GPIO_MODE_INPUT  = 0x0,
+    GPIO_MODE_OUTPUT = 0x1,
+    GPIO_MODE_ANALOG = 0x3,
+    GPIO_MODE_ALT    = 0x2,
+} GPIO_mode;
+
+typedef enum {
+    GPIO_OTYPE_PUSHPULL  = 0x0,
+    GPIO_OTYPE_OPENDRAIN = 0x1,
+} GPIO_otype;
+
+typedef enum {
+    GPIO_OSPEED_2MHz  = 0x0,
+    GPIO_OSPEED_10MHz = 0x1,
+    GPIO_OSPEED_50MHz = 0x3,
+} GPIO_ospeed;
+#define GPIO_OSPEED_LOW  GPIO_OSPEED_2MHz
+#define GPIO_OSPEED_HIGH GPIO_OSPEED_50MHz
+
+/* --- ports definition ----------------------------------------------------- */
+
+const int NPINS = 16;  // pins per port
+
+typedef struct {
+    GPIO_struct* GPIO;
+    int _GPIO_RCC_bit;
+} Port;
+
+static const Port PORTA = {
+    .GPIO = (GPIO_struct*)(AHBPERIPH_BASE),
+    ._GPIO_RCC_bit = 17,
+};
+static const Port PORTB = {
+    .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + 0x00000400),
+    ._GPIO_RCC_bit = 18,
+};
+static const Port PORTC = {
+    .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + 0x00000800),
+    ._GPIO_RCC_bit = 19,
+};
+
 
 #endif
