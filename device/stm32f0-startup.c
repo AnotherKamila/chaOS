@@ -25,12 +25,12 @@ static void hardfault_handler(void) { while (1) ; }
 /* vectors table */
 // TODO when IRQ handlers are needed, they should obviously go somewhere
 // else (and a mechanism to do that will be needed)
-word* vectors[]
-__attribute__ ((section(".isr_vector"))) = {  // stuff this in first (at 0x0)
-    (word*) _estack,           // stack top
-    (word*) _start,            // entry point
-    (word*) nmi_handler,       // NMI handler
-    (word*) hardfault_handler  // hardfault handler
+void (*vectors[])(void)
+__attribute__ ((section(".isr_vector"))) = {  // this is stuffed in first (at 0x0)
+    &_estack           , // stack top
+    &_start            , // entry point
+    &nmi_handler       , // NMI handler
+    &hardfault_handler   // hardfault handler
 };
 
 /* copies/initializes data and enters `main` */
