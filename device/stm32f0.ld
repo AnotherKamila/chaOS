@@ -11,6 +11,8 @@ PROVIDE(_stack_limit = _estack - _min_stack_sz);
 SECTIONS {
 
     .text : {
+        . = ALIGN(4);
+    
         _stext = .;
 
         KEEP(*(.isr_vector))
@@ -24,6 +26,8 @@ SECTIONS {
     } >FLASH
 
     .data : AT(_sidata) {
+        . = ALIGN(4);
+
         _sdata = .;
         
         *(.data)
@@ -34,6 +38,8 @@ SECTIONS {
     } >SRAM
     
     .bss : {
+        . = ALIGN(4);
+    
         _sbss = .;
         
         *(.bss)
