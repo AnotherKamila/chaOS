@@ -6,7 +6,7 @@ CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 SIZE=arm-none-eabi-size
 
-CFLAGS  = -lm -W -Wall -Wextra -O2
+CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic -O2
 CFLAGS += -mcpu=$(CPU) -mthumb
 CFLAGS += -I.
 
