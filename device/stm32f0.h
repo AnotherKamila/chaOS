@@ -66,6 +66,12 @@ typedef enum {
 } GPIO_otype;
 
 typedef enum {
+    GPIO_PuPd_NOPULL = 0x0,
+    GPIO_PuPd_UP     = 0x1,
+    GPIO_PuPd_DOWN   = 0x2,
+} GPIO_PuPd;
+
+typedef enum {
     GPIO_OSPEED_2MHz  = 0x0,
     GPIO_OSPEED_10MHz = 0x1,
     GPIO_OSPEED_50MHz = 0x3,
@@ -73,7 +79,7 @@ typedef enum {
 #define GPIO_OSPEED_LOW  GPIO_OSPEED_2MHz
 #define GPIO_OSPEED_HIGH GPIO_OSPEED_50MHz
 
-/* --- ports definition ----------------------------------------------------- */
+/* === ports definition ===================================================== */
 
 const int NPINS = 16;  // pins per port
 

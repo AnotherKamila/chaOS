@@ -1,4 +1,5 @@
 #include <stdarg.h>  // TODO learn to use this to make otype and ospeed optional
+// TODO or even better: use a struct to initialize - somehow
 #include "device/stm32f0.h"
 #include "util/bit_manip.h"
 
@@ -6,10 +7,19 @@ inline static void GPIO_init(const Port port) {
     bit_on(RCC->AHBENR, port._GPIO_RCC_bit);  // enable clock on that port
 }
 
-inline static void GPIO_setup_pin(const Port port, uint8_t pin, GPIO_mode mode, GPIO_otype otype, GPIO_ospeed ospeed) {
+// TODO I should most probably make these accept a mask of pins instead of a single number, this is stupid
+
+inline static void GPIO_setup_pin(const Port port, uint8_t pin, GPIO_mode mode, GPIO_otype otype, GPIO_PuPd pupd, GPIO_ospeed ospeed) {
     bit_mset(port.GPIO->MODER,   0x3 << 2*pin, mode   << 2*pin);  // 2 bits per pin
-    bit_mset(port.GPIO->OTYPER,  0x1 <<   pin, otype  << 2*pin);  // 1 bit per pin
+    bit_mset(port.GPIO->PUPDR,   0x3 << 2*pin, pupd   << 2*pin);  // 2 bits per pin
+    bit_mset(port.GPIO->OTYPER,  0x1 <<   pin, otype  <<   pin);  // 1 bit per pin
     bit_mset(port.GPIO->OSPEEDR, 0x3 << 2*pin, ospeed << 2*pin);  // 2 bits per pin
+}
+
+// TODO
+inline static void GPIO_setup_alt(const Port port, uint8_t pin, uint32_t mode) {
+    // AFR is a 2x32bit register, with AFR[0] for lower pins, AFR[1] for higher ones, so the following select the right thing depending on
+    bit_mset(port.GPIO->AFR[(1<<pin)>>0x3], 0x3 << 2*pin, mode << 2*pin);
 }
 
 // the following are atomic access (rather than read-modify-write)

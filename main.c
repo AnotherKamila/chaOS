@@ -3,14 +3,14 @@
 
 int main(void) {
     GPIO_init(PORTC);
-    GPIO_setup_pin(PORTC, 8, GPIO_MODE_OUTPUT, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
+    GPIO_setup_pin(PORTC, 8, GPIO_MODE_OUTPUT, GPIO_PuPd_NOPULL, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
 
-    int i;
+    uint32_t pattern = 0xa8eee2a;
     while (1) {
-        i = 0; while (++i < 50000) ;
-        GPIO_pin_on(PORTC, 8);
-        i = 0; while (++i < 200000) ;
-        GPIO_pin_off(PORTC, 8);
+        for (int i = 0; i < 32; ++i) {
+            GPIO_pin_set(PORTC, 8, (pattern & (1<<i)));
+            for (int i = 0; i < 100000; ++i) ;
+        }
     }
 
     return 0;
