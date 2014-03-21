@@ -1,4 +1,4 @@
-ELF       = main.elf
+MAIN      = main.elf
 CPU       = cortex-m0
 LDSCRIPT  = device/stm32f0.ld
 
@@ -12,7 +12,7 @@ CFLAGS += -I.
 
 LDFLAGS = -T$(LDSCRIPT) -nostartupfiles
 
-DEBUG_CFLAGS = -g3 -O0
+DEBUG_CFLAGS = -DDEBUG -g3 -O0
 
 SRCS = $(shell find -name '*.c')
 OBJS = $(SRCS:.c=.o)
@@ -25,11 +25,11 @@ endif
 
 # --------------------------------------------------------
 
-default: $(ELF)
+default: $(MAIN)
 
-$(ELF): $(OBJS)
+$(MAIN): $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS)
-	$(SIZE) $(ELF)
+	$(SIZE) $(MAIN)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
@@ -38,5 +38,5 @@ $(ELF): $(OBJS)
 %.o: %.s
 	$(CC) -c $(CFLAGS) $< -o $@
 
-gdb: $(ELF)
-	arm-none-eabi-gdb --command=.gdb-startup $(ELF)
+gdb: $(MAIN)
+	arm-none-eabi-gdb --command=.gdb-startup $(MAIN)

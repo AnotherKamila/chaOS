@@ -5,7 +5,7 @@
 
 /* === memory map =========================================================== */
 
-extern const word FLASH_BASE, RAM_BASE;
+extern word FLASH_BASE, RAM_BASE;
 
 #define PERIPH_BASE  0x40000000
 

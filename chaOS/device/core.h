@@ -15,4 +15,12 @@ typedef int32_t  ssize_t;
 
 typedef uint32_t word;
 
+/* --- debug macros --------------------------------------------------------- */
+
+#ifdef DEBUG
+// TODO
+//#define ASSERT(x)
+#else
+#endif
+
 #endif
