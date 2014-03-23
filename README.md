@@ -20,7 +20,7 @@ Later I might add some form of (preemptive) multitasking => real memory manageme
 Progress:
 ---------
 
-None. Yet.
+It can load (almost-bare-metal) ELF binaries and run them (but only from a fixed address - PIEs are a TODO). I need sleep.
 
 ----------------------------------------------------------------------------
 
@@ -49,7 +49,8 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 
 ...
 
- - separate "blink LEDs" from startup and make two binaries out of that
- - figure out how to load that binary somewhere where it can be executed and stuff a `goto` at the end of `main`
+ - make a separate binary (ELF), get it in there, parse it and run it  **✔**
+ - run PIEs
  - crosscompiler for chaOS target (`arm-chaos-eabi-*`) - see http://wiki.osdev.org/OS_Specific_Toolchain
- - make the switch to user mode and make the crosscompiler actually produce stuff capable of using my syscalls
+ - syscalls
+ - switch to user mode
