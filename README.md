@@ -4,8 +4,8 @@ Yes, I know I'm going to fail utterly. Yes, I know it is crazy. Yes, I know I wi
 
 Introducing:
 
-chaOS
-=====
+![chaOS logo](https://github.com/anotherkamila/chaOS/raw/master/logo-large.png) chaOS
+=====================================================================================
 
 **The useless, ugly and pointless OS (will-have-been-)made by a kid who thinks she's cool**
 
