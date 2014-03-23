@@ -6,7 +6,7 @@
 typedef int func();  // it should be void, and should get arguments + env + stuff...
 
 inline static func *_tofunc(const uintptr_t addr) {
-#ifdef _ARM_BLX_SHIT
+#ifdef _ARM_BLX_SHIT  // I hate them!
     return (func*)(addr | 0x1);
 #else
     return (func*)addr;
