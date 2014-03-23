@@ -1,5 +1,6 @@
-#include <stdarg.h>  // TODO learn to use this to make otype and ospeed optional
-// TODO or even better: use a struct to initialize - somehow
+#ifndef DRIVERS_GPIO_H
+#define DRIVERS_GPIO_H
+
 #include "device/stm32f0.h"
 #include "util/bit_manip.h"
 
@@ -7,6 +8,7 @@ inline static void GPIO_init(const Port port) {
     bit_on(RCC->AHBENR, port._GPIO_RCC_bit);  // enable clock on that port
 }
 
+// TODO use a struct to initialize - somehow
 // TODO I should most probably make these accept a mask of pins instead of a single number, this is stupid
 
 inline static void GPIO_setup_pin(const Port port, uint8_t pin, GPIO_mode mode, GPIO_otype otype, GPIO_PuPd pupd, GPIO_ospeed ospeed) {
@@ -35,3 +37,6 @@ inline static void GPIO_pin_set(const Port port, uint8_t pin, bool value) {
     if (value) GPIO_pin_on(port, pin);
     else GPIO_pin_off(port, pin);
 }
+
+
+#endif

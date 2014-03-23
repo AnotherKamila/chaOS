@@ -40,3 +40,9 @@ $(MAIN): $(OBJS)
 
 gdb: $(MAIN)
 	arm-none-eabi-gdb --command=.gdb-startup $(MAIN)
+
+.PHONY: clean
+
+clean:
+	find . -name '*.[od]' -exec rm -f '{}' \;
+	rm -f *.elf

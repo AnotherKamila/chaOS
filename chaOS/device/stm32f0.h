@@ -3,9 +3,17 @@
 
 #include "core.h"
 
+// the bl instruction w/ addr supposedly shouldn't be used, so let's do this shit with changing
+// instruction sets! (...which M0 can't even do, so... yep, jumping to a correctly aligned address
+// will hardfault! and accessing unaligned addresses anywhere else hardfaults too! Yay!)
+// see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
+#define _ARM_BLX_SHIT
+
 /* === memory map =========================================================== */
 
-extern word FLASH_BASE, RAM_BASE;
+extern const void *_FLASH_BASE_V, *_RAM_BASE_V;
+const uintptr_t FLASH_BASE = (uintptr_t)&_FLASH_BASE_V,
+                RAM_BASE   = (uintptr_t)&_RAM_BASE_V;
 
 #define PERIPH_BASE  0x40000000
 
