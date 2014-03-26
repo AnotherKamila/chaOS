@@ -1,5 +1,5 @@
-#ifndef BINFMT_COMMON_H
-#define BINFMT_COMMON_H
+#ifndef _BINFMT_COMMON_H
+#define _BINFMT_COMMON_H
 
 #include "device/core.h"
 

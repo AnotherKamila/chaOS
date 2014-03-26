@@ -2,8 +2,8 @@
  * kernel initialization
  */
 
+#include <string.h>
 #include "device/core.h"
-#include "util/mem.h"
 
 
 /* --- here starts bullshit ------------------------------------------------- */

@@ -1,9 +1,9 @@
-#ifndef BINFMT_ELF_H
-#define BINFMT_ELF_H
+#ifndef _BINFMT_ELF_H
+#define _BINFMT_ELF_H
 
 
+#include <string.h>
 #include "binfmt/common.h"
-#include "util/mem.h"
 
 #define TO_ADDR    (RAM_BASE + 0x200)  // TODO
 

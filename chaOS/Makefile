@@ -9,14 +9,16 @@ SIZE=arm-none-eabi-size
 CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic
 CFLAGS += -mcpu=$(CPU) -mthumb
 CFLAGS += -O2 -ffunction-sections -fdata-sections
-CFLAGS += -I.
+CFLAGS += -I. -I../cslibc/inc
 DEBUG_CFLAGS = -DDEBUG -g3 -O0
 
-LDFLAGS  = -T$(LDSCRIPT) -nostartupfiles
+LDFLAGS  = -T$(LDSCRIPT) -nostdlib -nostartupfiles
 LDFLAGS += --gc-sections
 
 SRCS = $(shell find -name '*.c')
 OBJS = $(SRCS:.c=.o)
+LIBSRCS = $(shell find ../cslibc/ -name '*.c')
+LIBOBJS = $(LIBSRCS:.c=.o)
 
 # --------------------------------------------------------
 
@@ -28,8 +30,8 @@ endif
 
 default: $(MAIN)
 
-$(MAIN): $(OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+$(MAIN): $(OBJS) $(LIBOBJS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LIBOBJS)
 	$(SIZE) $(MAIN)
 
 %.o: %.c

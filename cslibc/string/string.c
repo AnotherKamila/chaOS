@@ -1,4 +1,4 @@
-#include "mem.h"
+#include <string.h>
 
 // TODO add optimization for word-aligned cases everywhere
 
