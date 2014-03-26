@@ -4,4 +4,4 @@ MEMORY
   RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
-INCLUDE "device/stm32.ld"
+INCLUDE "chaos.ld"

@@ -2,12 +2,11 @@
  * kernel initialization
  */
 
-#include <string.h>
-#include "device/core.h"
+#include "string.h"
+#include "devices/core.h"
 
 
 /* --- here starts bullshit ------------------------------------------------- */
-#include "device/stm32f0.h"
 #include "drivers/gpio.h"
 #include "binfmt/elf.h"
 

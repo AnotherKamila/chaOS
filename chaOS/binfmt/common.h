@@ -1,7 +1,7 @@
 #ifndef _BINFMT_COMMON_H
 #define _BINFMT_COMMON_H
 
-#include "device/core.h"
+#include "devices/core.h"
 
 // it should be void func(void), and should get arguments + env + stuff one day
 typedef int func();  // func *f is a pointer to int f()

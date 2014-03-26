@@ -1,5 +1,6 @@
-#ifndef DEVICE_STM32F0_H
-#define DEVICE_STM32F0_H
+#ifndef _DEVICES_STM32F0_H
+#define _DEVICES_STM32F0_H
+
 
 #include "core.h"
 
@@ -10,10 +11,6 @@
 #define _ARM_BLX_SHIT
 
 /* === memory map =========================================================== */
-
-extern const void *_FLASH_BASE_V, *_RAM_BASE_V;
-const uintptr_t FLASH_BASE = (uintptr_t)&_FLASH_BASE_V,
-                RAM_BASE   = (uintptr_t)&_RAM_BASE_V;
 
 #define PERIPH_BASE  0x40000000
 
@@ -89,7 +86,7 @@ enum GPIO_ospeed {
 
 /* === ports definition ===================================================== */
 
-const int NPINS = 16;  // pins per port
+#define  NPINS  16  // pins per port
 
 typedef struct {
     GPIO_struct* GPIO;

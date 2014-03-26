@@ -2,10 +2,11 @@
 #define _BINFMT_ELF_H
 
 
-#include <string.h>
+#include "string.h"
+#include "devices/core.h"
 #include "binfmt/common.h"
 
-#define TO_ADDR    (RAM_BASE + 0x200)  // TODO
+#define TO_ADDR  (RAM_BASE + 0x200)  // TODO
 
 #define E_NOT_ELF_X       1
 #define E_NOT_COMPATIBLE  2

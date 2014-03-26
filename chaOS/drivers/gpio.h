@@ -1,7 +1,10 @@
-#ifndef DRIVERS_GPIO_H
-#define DRIVERS_GPIO_H
+#ifndef _DRIVERS_GPIO_H
+#define _DRIVERS_GPIO_H
 
-#include "device/stm32f0.h"
+
+// TODO (really): this file is an epic mess and should be thrown into a black hole
+
+#include "devices/core.h"
 #include "util/bit_manip.h"
 
 inline static void GPIO_init(const Port port) {

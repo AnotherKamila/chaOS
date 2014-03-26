@@ -22,6 +22,24 @@ Progress:
 
 It can load (almost-bare-metal) ELF binaries and run them (but only from a fixed address - PIEs are a TODO). I need sleep.
 
+How to add support for other ARM CPUs
+-------------------------------------
+
+For basic support two files need to be added:
+
+- ld script (`devices/<CPU>.ld`): specifies memory layout
+- CPU-specific header with constants, register mappings, peripherals etc. (`devices/<CPU>.h`)
+
+See `stm32f0.{ld,h}` for examples.
+
+`make` then needs to be called specifying the CPU and (optionally) CPU family (like `make CPUFAMILY=cortex-m0 CPU=stm32f0`, which are the defaults).
+
+Of course, every MCU has a different set of peripherals accessed in different ways. Once I actually need to support more MCUs, I will specify how to make CPU-specific peripherals drivers.
+
+Side note: I have not tested it :D (But it seems to at least compile cleanly for different families.)
+
+TODO: I forgot about ISR vectors :D I might fix that tomorrow (eh, today).
+
 ----------------------------------------------------------------------------
 
 Unless you are interested in what I think I know and what I think I should do, do not read any further. Also, if you think what I think I know is wrong, please please please let me know.
@@ -57,6 +75,5 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 
 ### Immediate TODO:
 
- - fix GPIO (incl. # of bits for configuration)
+ - throw gpio.h into a black hole
  - tidy up that scary WIP branch, merge what you can, publish it
- - Clean up! Clean up! Clean up! (move stuff around so that it makes sense)

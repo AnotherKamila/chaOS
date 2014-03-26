@@ -2,7 +2,7 @@
 #define _CS_STRING_H
 
 
-#include <stddef.h>
+#include "stddef.h"
 
 // TODO memcmp
 int bcmp(const void* const s1, const void* const s2, register size_t n);
