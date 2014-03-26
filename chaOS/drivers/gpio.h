@@ -11,7 +11,7 @@ inline static void GPIO_init(const Port port) {
 // TODO use a struct to initialize - somehow
 // TODO I should most probably make these accept a mask of pins instead of a single number, this is stupid
 
-inline static void GPIO_setup_pin(const Port port, uint8_t pin, GPIO_mode mode, GPIO_otype otype, GPIO_PuPd pupd, GPIO_ospeed ospeed) {
+inline static void GPIO_setup_pin(const Port port, uint8_t pin, enum GPIO_mode mode, enum GPIO_otype otype, enum GPIO_PuPd pupd, enum GPIO_ospeed ospeed) {
     bit_mset(port.GPIO->MODER,   0x3 << 2*pin, mode   << 2*pin);  // 2 bits per pin
     bit_mset(port.GPIO->PUPDR,   0x3 << 2*pin, pupd   << 2*pin);  // 2 bits per pin
     bit_mset(port.GPIO->OTYPER,  0x1 <<   pin, otype  <<   pin);  // 1 bit per pin

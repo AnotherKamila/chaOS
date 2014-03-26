@@ -3,7 +3,8 @@
 
 #include "device/core.h"
 
-typedef int func();  // it should be void, and should get arguments + env + stuff...
+// it should be void func(void), and should get arguments + env + stuff one day
+typedef int func();  // func *f is a pointer to int f()
 
 inline static func *_tofunc(const uintptr_t addr) {
 #ifdef _ARM_BLX_SHIT  // I hate them!

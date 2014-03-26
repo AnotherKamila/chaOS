@@ -5,18 +5,17 @@
 #include "binfmt/common.h"
 #include "util/mem.h"
 
-#define TO_ADDR    (RAM_BASE + 0x200)
-
+#define TO_ADDR    (RAM_BASE + 0x200)  // TODO
 
 #define E_NOT_ELF_X       1
 #define E_NOT_COMPATIBLE  2
 
-typedef uintptr_t elf32_addr;   // unsigned address
-typedef size_t    elf32_off;    // unsigned 4-byte integer
-typedef uint16_t  elf32_half;   // unsigned 2-byte integer
-typedef uint32_t  elf32_word;   // unsigned 4-byte integer
-typedef int32_t   elf32_sword;  // signed 4-byte integer
-typedef uint8_t   elf32_byte;   // unsigned byte
+typedef uint32_t elf32_addr;   // unsigned address
+typedef uint32_t elf32_off;    // unsigned 4-byte integer
+typedef uint16_t elf32_half;   // unsigned 2-byte integer
+typedef uint32_t elf32_word;   // unsigned 4-byte integer
+typedef int32_t  elf32_sword;  // signed 4-byte integer
+typedef uint8_t  elf32_byte;   // unsigned byte
 
 typedef struct {
     elf32_byte e_ident[16];  // machine-independent identification info
@@ -69,7 +68,11 @@ enum sh_attributes {
 };
 
 static bool is_elf_x(ELF32_hdr *hdr) {
-    return hdr->e_ident[0] == EID0 && hdr->e_type == ET_EXEC;
+    return hdr->e_ident[0] == EID0 &&
+           hdr->e_ident[1] == 'E'  &&
+           hdr->e_ident[2] == 'L'  &&
+           hdr->e_ident[3] == 'F'  &&
+           hdr->e_type == ET_EXEC;
 }
 static bool is_compatible(ELF32_hdr *hdr) {
     return hdr->e_ident[4] == EC_32      &&

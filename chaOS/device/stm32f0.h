@@ -61,29 +61,29 @@ typedef struct {
     uint16_t    RESERVED3;
 } GPIO_struct;
 
-typedef enum {
+enum GPIO_mode {
     GPIO_MODE_INPUT  = 0x0,
     GPIO_MODE_OUTPUT = 0x1,
     GPIO_MODE_ANALOG = 0x3,
     GPIO_MODE_ALT    = 0x2,
-} GPIO_mode;
+};
 
-typedef enum {
+enum GPIO_otype {
     GPIO_OTYPE_PUSHPULL  = 0x0,
     GPIO_OTYPE_OPENDRAIN = 0x1,
-} GPIO_otype;
+};
 
-typedef enum {
+enum GPIO_PuPd {
     GPIO_PuPd_NOPULL = 0x0,
     GPIO_PuPd_UP     = 0x1,
     GPIO_PuPd_DOWN   = 0x2,
-} GPIO_PuPd;
+};
 
-typedef enum {
+enum GPIO_ospeed {
     GPIO_OSPEED_2MHz  = 0x0,
     GPIO_OSPEED_10MHz = 0x1,
     GPIO_OSPEED_50MHz = 0x3,
-} GPIO_ospeed;
+};
 #define GPIO_OSPEED_LOW  GPIO_OSPEED_2MHz
 #define GPIO_OSPEED_HIGH GPIO_OSPEED_50MHz
 
