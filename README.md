@@ -59,7 +59,6 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 
  - separate things that should be in libc into my own little libc (e.g. `memcpy`)
  - add `-nostdlib` and implement what is needed in my own little libc
- - add `-ffuncion-sections`, `-fdata-sections` and make sure my ld script is correct
  - fix GPIO (incl. # of bits for configuration)
  - tidy up that scary WIP branch, merge what you can, publish it
  - Clean up! Clean up! Clean up! (move stuff around so that it makes sense)

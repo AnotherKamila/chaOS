@@ -6,13 +6,14 @@ CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 SIZE=arm-none-eabi-size
 
-CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic -O2
+CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic
 CFLAGS += -mcpu=$(CPU) -mthumb
+CFLAGS += -O2 -ffunction-sections -fdata-sections
 CFLAGS += -I.
-
-LDFLAGS = -T$(LDSCRIPT) -nostartupfiles
-
 DEBUG_CFLAGS = -DDEBUG -g3 -O0
+
+LDFLAGS  = -T$(LDSCRIPT) -nostartupfiles
+LDFLAGS += --gc-sections
 
 SRCS = $(shell find -name '*.c')
 OBJS = $(SRCS:.c=.o)
