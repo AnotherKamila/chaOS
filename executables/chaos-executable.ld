@@ -16,7 +16,7 @@ ENTRY(main);  /* directly! (creepy :D) - for now */
 
 SECTIONS {
 
-    .text : {
+    .text 0x4 : {
         . = ALIGN(4);
 
         _stext = .;

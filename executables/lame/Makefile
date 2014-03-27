@@ -19,7 +19,6 @@ default: $(MAIN)
 $(MAIN): $(MAIN:.elf=.o)
 	$(LD) $(LDFLAGS) -o $@ $<
 	$(OBJCOPY) --strip-all -R .ARM.attributes $@
-	$(OBJCOPY) -R .ARM.attributes $@
 	$(SIZE) $(MAIN)
 
 %.o: %.s
