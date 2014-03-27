@@ -15,9 +15,9 @@
 typedef uint32_t word;
 
 /* --- common setup --------------------------------------------------------- */
-extern const void *_FLASH_BASE_V, *_RAM_BASE_V;
-#define FLASH_BASE  ((uintptr_t)&_FLASH_BASE_V)
-#define RAM_BASE    ((uintptr_t)&_RAM_BASE_V)
+extern const void *_FLASH_BASE_L, *_RAM_BASE_L;
+#define FLASH_BASE  ((uintptr_t)&_FLASH_BASE_L)
+#define RAM_BASE    ((uintptr_t)&_RAM_BASE_L)
 
 /* --- debug macros --------------------------------------------------------- */
 

@@ -3,9 +3,9 @@
 # my STM32F0 board
 CPUFAMILY = cortex-m0
 CPU       = stm32f0
-LDSCRIPT  = devices/$(CPU).ld
 
 MAIN      = main.elf
+LDSCRIPT  = devices/$(CPU).ld
 
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld

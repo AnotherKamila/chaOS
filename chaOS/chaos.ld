@@ -7,8 +7,8 @@ _estack = ORIGIN(RAM) + LENGTH(RAM);
 _min_stack_sz = 256;
 PROVIDE(_stack_limit = _estack - _min_stack_sz);
 
-PROVIDE(_FLASH_BASE_V = ORIGIN(FLASH));
-PROVIDE(_RAM_BASE_V   = ORIGIN(RAM));
+PROVIDE(_FLASH_BASE_L = ORIGIN(FLASH));
+PROVIDE(_RAM_BASE_L   = ORIGIN(RAM));
 
 SECTIONS {
 
