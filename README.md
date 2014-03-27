@@ -25,20 +25,19 @@ It can load (almost-bare-metal) ELF binaries and run them (but only from a fixed
 How to add support for other ARM CPUs
 -------------------------------------
 
-For basic support two files need to be added:
+For basic support three files need to be added:
 
 - ld script (`devices/<CPU>.ld`): specifies memory layout
 - CPU-specific header with constants, register mappings, peripherals etc. (`devices/<CPU>.h`)
+- ISR vector table layout (`devices/<CPU>-isr_vector.c`)
 
-See `stm32f0.{ld,h}` for examples.
+See `devices/stm32f0*` for examples.
 
 `make` then needs to be called specifying the CPU and (optionally) CPU family (like `make CPUFAMILY=cortex-m0 CPU=stm32f0`, which are the defaults).
 
 Of course, every MCU has a different set of peripherals accessed in different ways. Once I actually need to support more MCUs, I will specify how to make CPU-specific peripherals drivers.
 
 Side note: I have not tested it :D (But it seems to at least compile cleanly for different families.)
-
-TODO: I forgot about ISR vectors :D I might fix that tomorrow (eh, today).
 
 ----------------------------------------------------------------------------
 

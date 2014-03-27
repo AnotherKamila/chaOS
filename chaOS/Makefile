@@ -21,10 +21,11 @@ DEBUG_CFLAGS = -DDEBUG -g3 -O0
 LDFLAGS  = -T$(LDSCRIPT) -nostdlib -nodefaultlibs -nostartupfiles
 LDFLAGS += --gc-sections
 
-SRCS = $(shell find -name '*.c')
-OBJS = $(SRCS:.c=.o)
+SRCS    = $(shell find -name '*.c' -not -name '*$(ISR_VECTOR_FN).c')
+OBJS    = $(SRCS:.c=.o)
 LIBSRCS = $(shell find ../cslibc/ -name '*.c')
 LIBOBJS = $(LIBSRCS:.c=.o)
+ISR_VECTOR_FN = -isr_vector
 
 # --------------------------------------------------------
 
@@ -36,8 +37,8 @@ endif
 
 default: $(MAIN)
 
-$(MAIN): $(OBJS) $(LIBOBJS)
-	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LIBOBJS)
+$(MAIN): $(OBJS) $(LIBOBJS) devices/$(CPU)$(ISR_VECTOR_FN).o
+	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LIBOBJS) devices/$(CPU)$(ISR_VECTOR_FN).o
 	$(SIZE) $(MAIN)
 
 %.o: %.c
