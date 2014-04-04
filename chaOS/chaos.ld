@@ -51,6 +51,8 @@ SECTIONS {
         _ebss = .;
     } >RAM
 
+    PROVIDE(_kernel_end = .);
+
     /* --- Cause an error if there is not enough RAM left for the stack ----- */
     ._stack : {
         . += _min_stack_sz;

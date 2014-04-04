@@ -68,23 +68,24 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 
  - make a separate binary (ELF), get it in there, parse it and run it  **✔**
  - non-preemptive multitasking that actually works (i.e. deals correctly with the stack, etc.)
- - run PIEs
+ - run PIEs  **✔**
  - crosscompiler for chaOS target (`arm-chaos-eabi-*`) - see http://wiki.osdev.org/OS_Specific_Toolchain
  - syscalls!
- - switch to user mode
+ - switch to user mode (but apparently not on this MCU :D)
  - context switching, preemptive multitasking (:D)
 
 ### Immediate TODO:
 
  - throw gpio.h into a black hole
  - tidy up that scary WIP branch, merge what you can, publish it
+ - use two separate stacks
 
 ### Where to go next
 
  - TODO think about what to think about :D (w/ regards to how I want to use this) \*
  - PIEs
- - implement syscalls (somehow -- TODO think about how) \*
+ - implement syscalls
  - context switching --> preemptive multitasking! (TODO think about the scheduler -- round robin (perhaps prioritized)?) \*
- - kernel design: monolithic or "microkernel: die trying"? \*
+ - are things like `malloc` or linker in kernel? \*
  - filesystem (sffs -- stupid flash filesystem? i.e. something read-only -- minimum of code & space overhead, zero worrying about SD card, filesystem creation via cat, etc.; and if it is on flash, it doesn't actually need an API, since it's direct memory access :D)
  - init mechanism :D

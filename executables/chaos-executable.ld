@@ -15,8 +15,10 @@ PROVIDE(RAM_BASE   = ORIGIN(RAM));
 ENTRY(main);  /* directly! (creepy :D) - for now */
 
 SECTIONS {
+    .interp : { *(.interp) }
+    .rel.dyn : { *(.rel.dyn) }
 
-    .text 0x4 : {
+    .text : {
         . = ALIGN(4);
 
         _stext = .;

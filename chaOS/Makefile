@@ -12,7 +12,7 @@ LD = arm-none-eabi-ld
 SIZE=arm-none-eabi-size
 
 CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic
-CFLAGS += -mcpu=$(CPUFAMILY) -mthumb
+CFLAGS += -mcpu=$(CPUFAMILY) -mthumb -ffreestanding
 CFLAGS += -DCPUFAMILY=$(CPUFAMILY) -DCPU=$(CPU) -include "devices/$(CPU).h"
 CFLAGS += -O2 -ffunction-sections -fdata-sections
 CFLAGS += -I. -I../cslibc/inc

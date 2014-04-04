@@ -4,9 +4,6 @@
 
 #include "core.h"
 
-// the bl instruction w/ addr supposedly shouldn't be used, so let's do this shit with changing
-// instruction sets! (...which M0 can't even do, so... yep, jumping to a correctly aligned address
-// will hardfault! and accessing unaligned addresses anywhere else hardfaults too! Yay!)
 // see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
 #define _ARM_BLX_SHIT
 
