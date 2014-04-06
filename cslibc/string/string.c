@@ -2,8 +2,8 @@
 
 // TODO add optimization for word-aligned cases everywhere
 
-int memcmp(const void *s1, const void *s2, register size_t n) {
-    register char *p1 = (char*)s1, *p2 = (char*)s2;
+int memcmp(const void* const s1, const void* const s2, size_t n) {
+    const char *p1 = (char*)s1, *p2 = (char*)s2;
     while (n--) {
         if (*p1++ != *p2++) {
             break;
@@ -12,16 +12,17 @@ int memcmp(const void *s1, const void *s2, register size_t n) {
     return n;
 }
 
-void *memcpy(void* const dest, void* const src, register const size_t n) {
-    register char *ps = src, *pd = dest;
+void *memcpy(void* const dest, const void* const src, const size_t n) {
+    const char *ps = src;
+    char *pd = dest;
     while ((uintptr_t)ps < (uintptr_t)src+n) {
         *pd++ = *ps++;
     }
     return dest;
 }
 
-void *memset(void* const start, register const int f, register const size_t n) {
-    register char* p = start;
+void *memset(void* const start, const int f, const size_t n) {
+    char* p = start;
     while ((uintptr_t)p < (uintptr_t)start+n) {
         *(p++) = f;
     }
