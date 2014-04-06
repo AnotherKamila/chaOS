@@ -5,11 +5,13 @@
 int memcmp(const void* const s1, const void* const s2, size_t n) {
     const char *p1 = (char*)s1, *p2 = (char*)s2;
     while (n--) {
-        if (*p1++ != *p2++) {
-            break;
+        if (*p1 != *p2) {
+            return p1 - p2;
         }
+        ++p1;
+        ++p2;
     }
-    return n;
+    return 0;
 }
 
 void *memcpy(void* const dest, const void* const src, const size_t n) {
