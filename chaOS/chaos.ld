@@ -1,6 +1,5 @@
-/* This file should be included into the device-specific one (which is
-   referenced in the Makefile and contains the memory map - FLASH and RAM
-   address ranges */
+/* This file should be included into the device-specific one (which is referenced in the Makefile
+   and contains the memory map - FLASH and RAM address ranges */
 
 _estack = ORIGIN(RAM) + LENGTH(RAM);
 
@@ -53,12 +52,12 @@ SECTIONS {
 
     PROVIDE(_kernel_end = .);
 
-    /* --- Cause an error if there is not enough RAM left for the stack ----- */
+    /* --- Cause an error if there is not enough RAM left for the stack ------------------------ */
     ._stack : {
         . += _min_stack_sz;
     } >RAM
 
-    /* --- Debug info ------------------------------------------------------- */
+    /* --- Debug info -------------------------------------------------------------------------- */
     .stab          0 : { *(.stab) }
     .stabstr       0 : { *(.stabstr) }
     .stab.excl     0 : { *(.stab.excl) }

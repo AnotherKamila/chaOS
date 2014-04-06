@@ -1,6 +1,4 @@
-/*
- * kernel initialization
- */
+/* kernel initialization */
 
 #include "string.h"
 #include "devices/core.h"
@@ -10,7 +8,7 @@ extern word _sidata, _sdata, _edata, _sbss, _ebss;
 
 void _start(void) __attribute__((noreturn));
 
-/* --- here starts bullshit ------------------------------------------------- */
+/* --- here starts bullshit -------------------------------------------------------------------- */
 #include "drivers/gpio.h"
 #include "binfmt/elf.h"
 
@@ -29,7 +27,7 @@ static void main(void) {
             GPIO_pin_on(PORTC, 9);
     }
 }
-/* --- here it ends --------------------------------------------------------- */
+/* --- here it ends ---------------------------------------------------------------------------- */
 
 void _start(void) {
     memcpy(&_sdata, &_sidata, &_edata - &_sdata);  // copy .data section to RAM

@@ -51,7 +51,7 @@ typedef struct {
     elf32_word sh_link;       // type-dependent
     elf32_word sh_info;       // type-dependent
     elf32_word sh_addralign;  // alignment constraints (sh_addr needs to be a multiple of this)
-    elf32_word sh_entsize;    // if it is a table of fixed-size entries, then this is the entry size
+    elf32_word sh_entsize;    // if it is a table of fixed-size entries, then this is that size
 } ELF32_shdr;
 
 enum sh_type {

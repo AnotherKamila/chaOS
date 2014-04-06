@@ -1,6 +1,6 @@
 # changing these (and of course adding CPU-specific ld and header files) allows recompilation for
-# various processors -- theoretically any ARM should work, but I have not tested anything other than
-# my STM32F0 board
+# various processors -- theoretically any ARM should work, but I have not tested anything other
+# than my STM32F0 board
 CPUFAMILY = cortex-m0
 CPU       = stm32f0
 
