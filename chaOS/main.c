@@ -23,8 +23,9 @@ static void main(void) {
     exec_img ximg;
     if (load_elf(&program, &ximg) == 0) {
         int ret = ximg.entry();
-        if (ret == 42)
+        if (ret == 42) {
             GPIO_pin_on(PORTC, 9);
+        }
     }
 }
 /* --- here it ends ---------------------------------------------------------------------------- */

@@ -93,10 +93,12 @@ static int load_elf(const program_img *prg, exec_img *res) {
     uintptr_t to_addr = TO_ADDR;  // TODO allocate memory instead of this :D
     // assuming my binary starts at 0x0
     ELF32_hdr *hdr = (ELF32_hdr*)prg->img;
-    if (!is_elf_x(hdr))
+    if (!is_elf_x(hdr)) {
         return E_NOT_ELF_X;
-    if (!is_compatible(hdr))
+    }
+    if (!is_compatible(hdr)) {
         return E_NOT_COMPATIBLE;
+    }
 
     ELF32_shdr *sections = (ELF32_shdr*)((uintptr_t)hdr + hdr->e_shoff);
     char *strings = (char*)(from_addr + sections[hdr->e_shstrndx].sh_off);
@@ -111,8 +113,9 @@ static int load_elf(const program_img *prg, exec_img *res) {
                 // TODO assert that shdr->sh_entsize is 4 bytes
                 uint32_t *src  = (uint32_t*)(from_addr + shdr->sh_off);
                 uint32_t *dest = (uint32_t*)daddr;
-                while ((uintptr_t)dest < (uint32_t)(daddr + shdr->sh_size))
+                while ((uintptr_t)dest < (uint32_t)(daddr + shdr->sh_size)) {
                     *dest++ = to_addr + *src++;  // to_addr is also the offset (as start is at 0x0)
+                }
             }
             else {
                 switch (shdr->sh_type) {

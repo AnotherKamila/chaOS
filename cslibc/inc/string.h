@@ -5,9 +5,9 @@
 #include "stddef.h"
 
 // TODO memcmp
-int memcmp(const void *s1, const void *s2, register size_t n);
-void *memcpy(void* const dest, void* const src, register const size_t n);
-void *memset(void* const start, register const int f, register const size_t n);
+int memcmp(const void* const s1, const void* const s2, size_t n);
+void *memcpy(void* const dest, const void* const src, const size_t n);
+void *memset(void* const start, const int f, const size_t n);
 
 
 #endif
