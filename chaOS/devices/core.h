@@ -2,15 +2,15 @@
 #define _DEVICES_CORE_H
 
 
-#include "stdbool.h"
+#include "Csucks.h"
 #include "stdint.h"
 #include "stddef.h"
 
 /* --- types ---------------------------------------------------------------- */
 
-#define IO volatile        // read/write registers
-#define O  volatile        // read-only registers
-#define I  const volatile  // write-only registers
+#define _IO volatile           // read/write registers
+#define _I  volatile           // write-only registers
+#define _O  readonly volatile  // read-only registers
 
 typedef uint32_t word;
 
