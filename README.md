@@ -25,6 +25,8 @@ It can load (almost-bare-metal) ELF binaries and run them (but only from a fixed
 How to add support for other ARM CPUs
 -------------------------------------
 
+**this section is out of date and I should go to sleep now, will fix ASAP**
+
 For basic support three files need to be added:
 
 - ld script (`devices/<CPU>.ld`): specifies memory layout

@@ -1,19 +1,8 @@
-#ifndef _DEVICES_STM32F0_H
-#define _DEVICES_STM32F0_H
+#ifndef _DEVICES_STM32F0_PERIPHERALS_H
+#define _DEVICES_STM32F0_PERIPHERALS_H
 
 
-#include "core.h"
-
-////// CPU internals //////////////////////////////////////////////////////////////////////////////
-
-// all general-purpose registers, plus sp, lr, pc
-#define REGISTERS_SET  {r0-r15}
-#define NUM_REGISTERS  16
-
-// see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
-#define _ARM_BLX_SHIT
-
-////// peripherals ////////////////////////////////////////////////////////////////////////////////
+#include "devices/core.h"
 
 /* === memory map ============================================================================== */
 

@@ -4,7 +4,7 @@
 
 // TODO (really): this file is an epic mess and should be thrown into a black hole
 
-#include "devices/core.h"
+#include "peripherals.h"
 #include "util/bit_manip.h"
 
 inline static void GPIO_init(const Port port) {
