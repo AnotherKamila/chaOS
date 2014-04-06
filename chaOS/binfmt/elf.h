@@ -111,7 +111,7 @@ static int load_elf(const program_img *prg, exec_img *res) {
                 // TODO assert that shdr->sh_entsize is 4 bytes
                 uint32_t *src  = (uint32_t*)(from_addr + shdr->sh_off);
                 uint32_t *dest = (uint32_t*)daddr;
-                while ((uintptr_t)dest < (uint32_t)(daddr + shdr->sh_size));
+                while ((uintptr_t)dest < (uint32_t)(daddr + shdr->sh_size))
                     *dest++ = to_addr + *src++;  // to_addr is also the offset (as start is at 0x0)
             }
             else {
