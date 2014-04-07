@@ -76,7 +76,6 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 
 ### Immediate TODO:
 
- - move code from .h into .c + change `static` to `intern` now that I have it
  - malloc
  - throw gpio.h into a black hole
  - tidy up that scary WIP branch, merge what you can, publish it
