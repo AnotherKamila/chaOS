@@ -5,7 +5,9 @@
 #define _CSUCKS_H
 
 
-#include "stdbool.h"  // everybody wants this anyway
+// everybody wants these anyway
+#include "stdbool.h"
+#include "stddef.h"
 
 #define intern    static  // for use in file scope
 #define common    static  // for use in function scope
