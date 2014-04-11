@@ -86,7 +86,6 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 ### Where to go next
 
  - TODO think about what to think about :D (w/ regards to how I want to use this) \*
- - PIEs
  - implement syscalls
  - context switching --> preemptive multitasking! (TODO think about the scheduler -- round robin (perhaps prioritized)?) \*
  - are things like `malloc` or linker in kernel? \*
