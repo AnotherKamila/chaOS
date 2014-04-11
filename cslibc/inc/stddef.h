@@ -9,5 +9,7 @@ typedef unsigned int  uintptr_t;
 typedef int           ssize_t;
 typedef unsigned int  size_t;
 
+#define NULL ((void*)0)
+
 
 #endif
