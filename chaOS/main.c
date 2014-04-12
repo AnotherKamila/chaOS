@@ -17,15 +17,13 @@ void _start(void) __attribute__((noreturn));
 #pragma GCC diagnostic ignored "-Wmain"  // this `main` is different!
 static void main(void) {
     GPIO_init(PORTC);
+    GPIO_setup_pin(PORTC, 8, GPIO_MODE_OUTPUT, GPIO_PuPd_NOPULL, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
     GPIO_setup_pin(PORTC, 9, GPIO_MODE_OUTPUT, GPIO_PuPd_NOPULL, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
 
     program_img program = { .img = (void*)FROM_ADDR };
     exec_img ximg;
     if (load_elf(&program, &ximg) == 0) {
-        int ret = ximg.entry();
-        if (ret == 42) {
-            GPIO_pin_on(PORTC, 9);
-        }
+        ximg.entry();
     }
 }
 /* --- here it ends ---------------------------------------------------------------------------- */
