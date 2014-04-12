@@ -1,5 +1,5 @@
 #include "devices/core.h"
-#include "drivers/gpio.h"
+#include "inc/gpio.h"
 
 typedef void (*syscall_fun_t)(void);  // syscall_fun_t *f is a pointer to void f(void)
 
@@ -7,8 +7,8 @@ void SVcall_handler(void) __attribute__((interrupt("SVC")));
 
 // test syscalls
 void syscall0x00(void) { while (1) ; }
-void syscall0x01(void) { GPIO_pin_on(PORTC, 8); }
-void syscall0x02(void) { GPIO_pin_on(PORTC, 9); }
+void syscall0x01(void) { /*TODO set pin on*/ }
+void syscall0x02(void) { /*TODO set pin on*/ }
 
 void SVcall_handler(void) {
 
