@@ -56,3 +56,6 @@ gdb: $(MAIN)
 clean:
 	find . -name '*.[od]' -exec rm -f '{}' \;
 	rm -f *.elf
+
+# include the generated dependencies
+-include $(OBJS:.o=.d)

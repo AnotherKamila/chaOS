@@ -1,5 +1,7 @@
-#ifndef _DEVICES_CORE_H
-#define _DEVICES_CORE_H
+/* includes useful things, defines some types and some constants; included almost everywhere */
+
+#ifndef DEVICES_CORE_H
+#define DEVICES_CORE_H
 
 
 #include "Csucks.h"

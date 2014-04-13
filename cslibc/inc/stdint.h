@@ -1,16 +1,16 @@
-#ifndef _CS_STDINT_H
-#define _CS_STDINT_H
+#ifndef CS_STDINT_H
+#define CS_STDINT_H
 
 
-/* === exact integral types ===================================================================== */
+/* === exact integral types ==================================================================== */
 
-/* --- signed ----------------------------------------------------------------------------------- */
+/* --- signed ---------------------------------------------------------------------------------- */
 typedef signed char    int8_t;
 typedef short int      int16_t;
 typedef int            int32_t;
 typedef long long int  int64_t;
 
-/* --- unsigned --------------------------------------------------------------------------------- */
+/* --- unsigned -------------------------------------------------------------------------------- */
 
 typedef unsigned char           uint8_t;
 typedef unsigned short int      uint16_t;

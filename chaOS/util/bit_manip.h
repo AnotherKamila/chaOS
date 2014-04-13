@@ -1,3 +1,5 @@
+/* utility macros for bit manipulation */
+
 #ifndef _UTIL_BIT_MANIP_H
 #define _UTIL_BIT_MANIP_H
 

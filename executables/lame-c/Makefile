@@ -25,7 +25,6 @@ $(MAIN): $(MAIN:.elf=.o)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
-	$(CC) -MM $(CFLAGS) $< > $*.d
 
 flash: $(MAIN)
 	st-flash write $(MAIN) $(TO_ADDR)

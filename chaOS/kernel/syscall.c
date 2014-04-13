@@ -1,3 +1,6 @@
+// TODO this whole thing needs to be re-thought
+// TODO get a header file :D
+
 #include "devices/core.h"
 #include "drivers/gpio.h"
 

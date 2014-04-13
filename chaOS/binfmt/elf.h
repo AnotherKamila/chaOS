@@ -1,5 +1,7 @@
-#ifndef _BINFMT_ELF_H
-#define _BINFMT_ELF_H
+/* ELF executables support */
+
+#ifndef BINFMT_ELF_H
+#define BINFMT_ELF_H
 
 
 #include "devices/core.h"

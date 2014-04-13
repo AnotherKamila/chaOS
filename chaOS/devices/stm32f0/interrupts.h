@@ -1,5 +1,4 @@
-/* declares interrupt handlers (can be overridden by declaring a (strong) function with the same
-   name) */
+/* declares interrupt handlers (overridde by declaring a (strong) function with the same name) */
 
 #include "devices/core.h"
 

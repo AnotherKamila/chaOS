@@ -2,7 +2,6 @@
 #include "elf.h"
 #include "string.h"
 
-
 #define TO_ADDR  (RAM_BASE + 0x200)  // TODO
 
 intern bool is_elf_x(ELF32_hdr *hdr) {

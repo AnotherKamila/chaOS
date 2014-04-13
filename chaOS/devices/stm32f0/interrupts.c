@@ -1,4 +1,5 @@
-/* defines interrupt handlers */
+/* defines interrupt handlers + stuffs them at the correct address */
+// TODO this whole thing needs to be re-thought
 
 #include "interrupts.h"
 

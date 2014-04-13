@@ -1,5 +1,7 @@
-#ifndef _CS_STDBOOL_H
-#define _CS_STDBOOL_H
+/* provides the bool type */
+
+#ifndef CS_STDBOOL_H
+#define CS_STDBOOL_H
 
 
 #define bool   _Bool

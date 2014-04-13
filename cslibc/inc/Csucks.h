@@ -1,8 +1,8 @@
 /* Provides aliases for some types and C keywords I don't like.
    The rest of cslibc does not use this, it's here just for convenience. */
 
-#ifndef _CSUCKS_H
-#define _CSUCKS_H
+#ifndef CSUCKS_H
+#define CSUCKS_H
 
 
 // everybody wants these anyway

@@ -1,5 +1,8 @@
-#ifndef _DEVICES_STM32F0_PERIPHERALS_H
-#define _DEVICES_STM32F0_PERIPHERALS_H
+/* declares memory-mapped peripherals and related things like flags */
+// TODO this whole thing needs to be re-thought
+
+#ifndef DEVICES_STM32F0_PERIPHERALS_H
+#define DEVICES_STM32F0_PERIPHERALS_H
 
 
 #include "devices/core.h"
@@ -38,18 +41,18 @@ typedef struct {
 typedef struct {
     _IO uint32_t MODER;       // mode register                   offset 0x00
     _IO uint16_t OTYPER;      // output type register            offset 0x04
-    uint16_t    RESERVED0;
+    uint16_t     RESERVED0;
     _IO uint32_t OSPEEDR;     // output speed register           offset 0x08
     _IO uint32_t PUPDR;       // pull-up/pull-down register      offset 0x0C
     _IO uint16_t IDR;         // input data register             offset 0x10
-    uint16_t    RESERVED1;
+    uint16_t     RESERVED1;
     _IO uint16_t ODR;         // output data register            offset 0x14
-    uint16_t    RESERVED2;
+    uint16_t     RESERVED2;
     _IO uint32_t BSRR;        // bit set/reset register          offset 0x18
     _IO uint32_t LCKR;        // configuration lock register     offset 0x1C
     _IO uint32_t AFR[2];      // alternate function registers    offset 0x20-0x24
     _IO uint16_t BRR;         // bit reset register              offset 0x28
-    uint16_t    RESERVED3;
+    uint16_t     RESERVED3;
 } GPIO_struct;
 
 enum GPIO_mode {
