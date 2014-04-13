@@ -16,16 +16,20 @@
 // 0 defaults to a floating input.
 //Rest of the pins may be a device-specific settings documented in each individual driver file.
 
-#define GPIO_ALTERNATE 1
-#define GPIO_ANALOG 2
-#define GPIO_INPUT 0
-#define GPIO_FLOATING 0
-#define GPIO_PULLING 8
-#define GPIO_PULLDOWN 0
-#define GPIO_PULLUP 16
-#define GPIO_OUTPUT 4
-#define GPIO_PUSHPULL 0
-#define GPIO_OPENDRAIN 8
+#define GPIO_ALTERNATE  1
+#define GPIO_ANALOG     2
+#define GPIO_INPUT      0
+#define GPIO_FLOATING   0
+#define GPIO_PULLING    8
+#define GPIO_PULLDOWN   0
+#define GPIO_PULLUP     16
+#define GPIO_OUTPUT     4
+#define GPIO_PUSHPULL   0
+#define GPIO_OPENDRAIN  8
+
+#define GPIO_SUCCESS            0
+#define GPIO_PORT_OUT_OF_RANGE  1
+#define GPIO_UNSUPPORTED_EXTRA  2
 
 /** Turn on the GPIO peripheral.
   *

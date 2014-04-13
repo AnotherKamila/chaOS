@@ -1,6 +1,7 @@
 #ifndef _UTIL_BIT_MANIP_H
 #define _UTIL_BIT_MANIP_H
 
+#include "stdint.h"
 
 #define bit_mon(x, m)  ((x) |= (m))
 #define bit_moff(x, m)  ((x) &= ~(m))
@@ -14,5 +15,7 @@
 #define bit_get(x, i)  ((x) & (1 << (i)))
 #define bit_set(x, i, v)  if (bit_get(x, i) == !v) bit_tgl(x, i)
 
+uint32_t bits_stretch(uint32_t x);
+uint32_t bits_expand(uint32_t x);
 
 #endif

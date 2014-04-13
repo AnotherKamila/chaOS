@@ -2,6 +2,7 @@
 
 #include "string.h"
 #include "devices/core.h"
+#include "devices/stm32f0/drivers/gpio.h"
 
 /* linker-supplied addresses */
 extern word _sidata, _sdata, _edata, _sbss, _ebss;
@@ -23,11 +24,13 @@ static void main(void) {
     GPIO_setup_pin(PORTC, 9, GPIO_MODE_OUTPUT, GPIO_PuPd_NOPULL, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
     */
 
+/*
     program_img program = { .img = (void*)FROM_ADDR };
     exec_img ximg;
     if (load_elf(&program, &ximg) == 0) {
         ximg.entry();
     }
+*/
 }
 /* --- here it ends ---------------------------------------------------------------------------- */
 
