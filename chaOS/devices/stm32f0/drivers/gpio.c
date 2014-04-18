@@ -75,10 +75,12 @@ uint32_t GPIO_set_pins_mode(uint16_t port, uint32_t pins, uint16_t mode_flags) {
 	return GPIO_SUCCESS;
 }
 
-uint32_t GPIO_write(uint16_t port, uint32_t pins, bool value) {
+uint32_t GPIO_write(uint16_t port, uint32_t pins, uint32_t values) {
 	if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
-	uint32_t *atomicRegister = value ? &(ports[port].GPIO->BSRR) : &(ports[port].GPIO->BRR);
-	*atomicRegister = pins;
+	uint32_t sr = 0;
+	bit_mon(sr, values & pins); //Lower 16 bits of BSRR control which pins should be turned on
+	bit_mon(sr, (~values & pins) << 16); //Higher 16 bits of BSRR control which pins should be turned off
+	ports[port].GPIO->BSRR = sr;
 	return GPIO_SUCCESS;
 }
 

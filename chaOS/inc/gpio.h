@@ -74,7 +74,7 @@ uint32_t GPIO_set_pins_mode(uint16_t port, uint32_t pins, uint16_t mode_flags);
   * pins out of range, or writing to the GPIO is locked.
   * \param pins is a bitmask of pins to set
   */
-uint32_t GPIO_write(uint16_t port, uint32_t pins, bool value);
+uint32_t GPIO_write(uint16_t port, uint32_t pins, uint32_t values);
 
 /** Read the value on the pins.
   *

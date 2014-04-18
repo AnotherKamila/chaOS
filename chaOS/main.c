@@ -17,20 +17,15 @@ void _start(void) __attribute__((noreturn));
 
 #pragma GCC diagnostic ignored "-Wmain"  // this `main` is different!
 static void main(void) {
-    /*
-    TODO rewrite against the new driver interface
-    GPIO_init(PORTC);
-    GPIO_setup_pin(PORTC, 8, GPIO_MODE_OUTPUT, GPIO_PuPd_NOPULL, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
-    GPIO_setup_pin(PORTC, 9, GPIO_MODE_OUTPUT, GPIO_PuPd_NOPULL, GPIO_OTYPE_PUSHPULL, GPIO_OSPEED_LOW);
-    */
+    GPIO_enable_port(PORTC);
+    GPIO_set_pins_mode(PORTC, (1 << 8) | (1 << 9), GPIO_OUTPUT);
 
-/*
     program_img program = { .img = (void*)FROM_ADDR };
     exec_img ximg;
     if (load_elf(&program, &ximg) == 0) {
         ximg.entry();
     }
-*/
+
 }
 /* --- here it ends ---------------------------------------------------------------------------- */
 
