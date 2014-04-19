@@ -9,9 +9,10 @@
 
 /* --- types ------------------------------------------------------------------------------------ */
 
-#define _IO volatile          // read/write memory-mapped peripherals
-#define _I  volatile          // write-only memory-mapped peripherals
-#define _O  readonly volatile // read-only memory-mapped peripherals
+#define _IO volatile          // read/write memory-mapped peripheral registers
+#define _I  volatile          // write-only memory-mapped peripheral registers
+#define _O  readonly volatile // read-only memory-mapped peripheral registers
+#define _RV readonly          // reserved peripheral registers (to be kept on reset value)
 
 typedef uint32_t word;
 
