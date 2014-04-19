@@ -1,12 +1,11 @@
 /* includes useful things, defines some types and some constants; included almost everywhere */
 
-#ifndef DEVICES_CORE_H
-#define DEVICES_CORE_H
+#ifndef CORE_H
+#define CORE_H
 
 
 #include "Csucks.h"
 #include "stdint.h"
-#include "stddef.h"
 
 /* --- types ------------------------------------------------------------------------------------ */
 
@@ -17,6 +16,7 @@
 typedef uint32_t word;
 
 /* --- common setup ----------------------------------------------------------------------------- */
+
 extern const void *_FLASH_BASE_L, *_RAM_BASE_L;
 #define FLASH_BASE  ((uintptr_t)&_FLASH_BASE_L)
 #define RAM_BASE    ((uintptr_t)&_RAM_BASE_L)

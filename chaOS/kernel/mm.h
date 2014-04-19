@@ -4,7 +4,7 @@
 #define KERNEL_MM_H
 
 
-#include "devices/core.h"
+#include "core.h"
 
 /**
  * initializes the memory management subsystem

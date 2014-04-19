@@ -4,7 +4,7 @@
 #define BINFMT_COMMON_H
 
 
-#include "devices/core.h"
+#include "core.h"
 
 // should get arguments + env + stuff one day
 typedef void func(void); // func *f is a pointer to void f(void)

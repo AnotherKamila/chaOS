@@ -2,7 +2,7 @@
 #include "elf.h"
 #include "string.h"
 
-#define TO_ADDR  (RAM_BASE + 0x200)  // TODO
+#define TO_ADDR  (RAM_BASE + 0x200) // TODO
 
 intern bool is_elf_x(ELF32_hdr *hdr) {
     return hdr->e_ident[0] == EID0 &&
@@ -20,7 +20,7 @@ intern bool is_compatible(ELF32_hdr *hdr) {
 // TODO load from something file-like
 int load_elf(const program_img *prg, exec_img *res) {
     uintptr_t from_addr = (uintptr_t)prg->img;
-    uintptr_t to_addr = TO_ADDR;  // TODO allocate memory instead of this :D
+    uintptr_t to_addr = TO_ADDR; // TODO allocate memory instead of this :D
     // assuming my binary starts at 0x0
     ELF32_hdr *hdr = (ELF32_hdr*)prg->img;
     if (!is_elf_x(hdr)) {

@@ -1,7 +1,7 @@
 /* kernel initialization */
 
 #include "string.h"
-#include "devices/core.h"
+#include "core.h"
 #include "kernel/mm.h"
 #include "kernel/panic.h"
 

@@ -4,7 +4,7 @@
 #define BINFMT_ELF_H
 
 
-#include "devices/core.h"
+#include "core.h"
 #include "binfmt/common.h"
 
 #define E_NOT_ELF_X       1

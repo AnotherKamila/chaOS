@@ -1,33 +1,40 @@
-# changing these (and of course adding CPU-specific ld and header files) allows recompilation for
+# changing these (and of course adding MCU-specific ld and header files) allows recompilation for
 # various processors -- theoretically any ARM should work, but I have not tested anything other
 # than my STM32F0 board
-CPUFAMILY = cortex-m0
-CPU       = stm32f0
+FAMILY = cortex-m0
+MCU    = stm32f0
+BOARD  = discovery-f0
 
-MAIN      = main.elf
-LDSCRIPT  = devices/$(CPU)/device.ld
+MAIN     = chaos.elf
+LDSCRIPT = mcus/$(FAMILY)/$(MCU)/device.ld
 
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 SIZE=arm-none-eabi-size
 
 CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic
-CFLAGS += -mcpu=$(CPUFAMILY) -mthumb -ffreestanding
-CFLAGS += -DCPUFAMILY=$(CPUFAMILY) -DCPU=$(CPU) -I "devices/$(CPU)"
+CFLAGS += -mcpu=$(FAMILY) -mthumb -ffreestanding
 CFLAGS += -O2 -ffunction-sections -fdata-sections
-CFLAGS += -DCHAOS_KERNEL -I. -Idevices/$(CPU) -I../cslibc/inc
+CFLAGS += -DCHAOS_KERNEL -I. -I../cslibc/inc
 DEBUG_CFLAGS = -g3 -O0
 
 LDFLAGS  = -T$(LDSCRIPT) -nostdlib -nodefaultlibs -nostartupfiles
 LDFLAGS += --gc-sections
 
-SRCS    = $(shell find . -path ./devices -prune -o -name '*.c' -print)
-SRCS   += $(shell find ./devices/$(CPU) -name '*.c')
+CFLAGS += -DCPU=$(MCU)       -I "mcus/$(FAMILY)/$(MCU)"
+CFLAGS += -DFAMILY=$(FAMILY) -I "mcus/$(FAMILY)/common"
+CFLAGS += -DBOARD=$(BOARD)   -I "boards/$(BOARD)"
+
+SRCS  = $(shell find \( -path ./mcus -o -path ./boards \) -prune -o -name '*.c' -print)
+SRCS += $(shell find mcus/$(FAMILY)/$(MCU) -name '*.c')
+SRCS += $(shell find mcus/$(FAMILY)/common -name '*.c')
+SRCS += $(shell find boards/$(BOARD) -name '*.c')
+
 OBJS    = $(SRCS:.c=.o)
 LIBSRCS = $(shell find ../cslibc/ -name '*.c')
 LIBOBJS = $(LIBSRCS:.c=.o)
 
-# --------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
 
 ifeq ($(NODEBUG),)
 	CFLAGS += $(DEBUG_CFLAGS)
@@ -35,7 +42,7 @@ else
 	CFLAGS += -DNDEBUG
 endif
 
-# --------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
 
 default: $(MAIN)
 
@@ -46,9 +53,6 @@ $(MAIN): $(OBJS) $(LIBOBJS)
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 	$(CC) -MM $(CFLAGS) $< > $*.d
-
-%.o: %.s
-	$(CC) -c $(CFLAGS) $< -o $@
 
 gdb: $(MAIN)
 	arm-none-eabi-gdb --command=.gdb-startup $(MAIN)

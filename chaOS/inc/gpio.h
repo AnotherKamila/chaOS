@@ -1,7 +1,7 @@
 #ifndef INC_GPIO_H
 #define INC_GPIO_H
 
-#include "devices/core.h"
+#include "core.h"
 #include "util/bit_manip.h"
 
 //Bit table for GPIO_set_pins_mode mode_flags. (If the conditions are not met the bit is ignored)

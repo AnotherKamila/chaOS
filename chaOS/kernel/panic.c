@@ -1,5 +1,6 @@
 #include "panic.h"
-#include "drivers/gpio.h"
+#include "board.h"
+#include "inc/gpio.h"
 
 #pragma GCC diagnostic ignored "-Wunused-parameter" // msg is here to be accessible by the debugger
 void panic(const char * const msg) {

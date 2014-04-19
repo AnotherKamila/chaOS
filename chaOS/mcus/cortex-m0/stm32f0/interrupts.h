@@ -1,6 +1,6 @@
 /* declares interrupt handlers (overridde by declaring a (strong) function with the same name) */
 
-#include "devices/core.h"
+#include "core.h"
 
 #define ISR_NOIMPL(name)  \
         void name(void) __attribute__((weak, alias("default_interrupt_handler")))

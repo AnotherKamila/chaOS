@@ -5,7 +5,7 @@
 #define DEVICES_STM32F0_PERIPHERALS_H
 
 
-#include "devices/core.h"
+#include "core.h"
 
 /* === memory map =============================================================================== */
 

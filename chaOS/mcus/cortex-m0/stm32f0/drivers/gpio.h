@@ -1,6 +1,7 @@
 #ifndef DEVICES_STM32F0_DRIVERS_GPIO_H
 #define DEVICES_STM32F0_DRIVERS_GPIO_H
 
+
 #include "inc/gpio.h"
 #include "peripherals.h"
 
@@ -24,8 +25,5 @@ typedef struct {
 
 #define PORT_MAX 5
 
-#define LED_PORT  PORTC
-#define LED1      PIN(8)
-#define LED2      PIN(9)
 
 #endif
