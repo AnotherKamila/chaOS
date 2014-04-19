@@ -3,6 +3,8 @@
 #ifndef MCUS_CORTEXM0_STM32F0_MEMMAP_H
 #define MCUS_CORTEXM0_STM32F0_MEMMAP_H
 
+#include "peripherals.h"
+
 /* --- Peripherals base address ------------------------------------------------------------------*/
 
 #define PERIPH_BASE             0x40000000

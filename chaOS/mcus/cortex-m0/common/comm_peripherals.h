@@ -1,7 +1,8 @@
-/* defines common mcu family peripherals and related things like flags */
+/* defines common MCU family peripherals and related things like flags */
 
 #ifndef MCUS_CORTEXM0_COMMON_PERIPHERALS_H
 #define MCUS_CORTEXM0_COMMON_PERIPHERALS_H
+
 
 #include "core.h"
 
@@ -15,7 +16,7 @@ typedef struct {
     _IO uint32_t SCR;       // System control register                              offset 0x10
     _IO uint32_t CCR;       // Configuration and control register                   offset 0x14
     _RV uint32_t RESERVED1;
-    _IO uint32_t SPHR[2];   // System priority handle register                      offset 0x1C
+    _IO uint32_t SHPR[2];   // System handler priority register                     offset 0x1C
 } SCB_struct;
 
 /* --- SysTick timer -----------------------------------------------------------------------------*/
@@ -40,5 +41,6 @@ typedef struct {
     _RV uint32_t RESERVED3[29];
     _IO uint32_t IPR[8];    // Interrupt priority register                          offset 0x300
 } NVIC_struct;
+
 
 #endif
