@@ -4,7 +4,7 @@
 #include "devices/core.h"
 #include "drivers/gpio.h"
 
-typedef void (*syscall_fun_t)(void);  // syscall_fun_t *f is a pointer to void f(void)
+typedef void (*syscall_fun_t)(void); // syscall_fun_t *f is a pointer to void f(void)
 
 void SVcall_handler(void) __attribute__((interrupt("SVC")));
 
@@ -21,6 +21,6 @@ void SVcall_handler(void) {
         syscall0x02,
     };
 
-    register int r0 __asm__("r0");  // r0 is used to pass the syscall type
+    register int r0 __asm__("r0"); // r0 is used to pass the syscall type
     syscalls_table[r0]();
 }

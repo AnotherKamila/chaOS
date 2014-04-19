@@ -1,7 +1,7 @@
 /* utility macros for bit manipulation */
 
-#ifndef _UTIL_BIT_MANIP_H
-#define _UTIL_BIT_MANIP_H
+#ifndef UTIL_BIT_MANIP_H
+#define UTIL_BIT_MANIP_H
 
 
 #define bit_mon(x, m)  ((x) |= (m))

@@ -9,11 +9,11 @@
 #include "stdbool.h"
 #include "stddef.h"
 
-#define intern    static  // for use in file scope
-#define common    static  // for use in function scope
-#define readonly  const   // it's not constant, it's just read-only!
+#define intern    static // for use in file scope
+#define common    static // for use in function scope
+#define readonly  const  // it's not constant, it's just read-only!
 
-#define byte  char  // to be used with signed/unsigned (that's why it isn't a typedef)
+#define byte  char // to be used with signed/unsigned (that's why it isn't a typedef)
 
 
 #endif

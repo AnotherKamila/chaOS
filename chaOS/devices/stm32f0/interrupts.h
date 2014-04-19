@@ -7,7 +7,7 @@
 
 #define ISR(name)  \
         void name(void) __attribute__((weak)));                                                   \
-        void name(void)  // expects to see { /* implementation */ }
+        void name(void) // expects to see { /* implementation */ }
 
 #define EXC_NOIMPL(name)  \
         void name(void) __attribute__((weak, alias("default_exception_handler")))

@@ -36,23 +36,23 @@ int load_elf(const program_img *prg, exec_img *res) {
     // prepare .bss, relocate GOT, load .text and .data
     for (int sec_idx = 0; sec_idx < hdr->e_shnum; ++sec_idx) {
         ELF32_shdr *shdr = &sections[sec_idx];
-        if (shdr->sh_flags & SHF_ALLOC && shdr->sh_size) {  // non-empty allocatable sections
-            uintptr_t daddr = to_addr + shdr->sh_addr;  // poor man's relocation :D
+        if (shdr->sh_flags & SHF_ALLOC && shdr->sh_size) { // non-empty allocatable sections
+            uintptr_t daddr = to_addr + shdr->sh_addr; // poor man's relocation :D
             char *name = strings + shdr->sh_name;
-            if (memcmp(name, ".got", 4) == 0) {  // handle relocation -- copy adding offset
+            if (memcmp(name, ".got", 4) == 0) { // handle relocation -- copy adding offset
                 // TODO assert that shdr->sh_entsize is 4 bytes
                 uint32_t *src  = (uint32_t*)(from_addr + shdr->sh_off);
                 uint32_t *dest = (uint32_t*)daddr;
                 while ((uintptr_t)dest < (uint32_t)(daddr + shdr->sh_size)) {
-                    *dest++ = to_addr + *src++;  // to_addr is also the offset (as start is at 0x0)
+                    *dest++ = to_addr + *src++; // to_addr is also the offset (as start is at 0x0)
                 }
             }
             else {
                 switch (shdr->sh_type) {
-                    case SHT_NOBITS:  // .bss
+                    case SHT_NOBITS: // .bss
                         memset((void*)daddr, 0, shdr->sh_size);
                         break;
-                    case SHT_PROGBITS:  // .data, .rodata, .text (should use FLAGS to set rwx perms)
+                    case SHT_PROGBITS: // .data, .rodata, .text (should use FLAGS to set rwx perms)
                         memcpy((void*)daddr, (void*)(from_addr + shdr->sh_off), shdr->sh_size);
                         break;
                 }
@@ -60,6 +60,6 @@ int load_elf(const program_img *prg, exec_img *res) {
         }
     }
 
-    res->entry = _tofunc(to_addr + hdr->e_entry);  // traces of my poor man's relocation too
+    res->entry = _tofunc(to_addr + hdr->e_entry); // traces of my poor man's relocation too
     return 0;
 }
