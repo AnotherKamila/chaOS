@@ -16,7 +16,7 @@ CFLAGS += -mcpu=$(CPUFAMILY) -mthumb -ffreestanding
 CFLAGS += -DCPUFAMILY=$(CPUFAMILY) -DCPU=$(CPU) -I "devices/$(CPU)"
 CFLAGS += -O2 -ffunction-sections -fdata-sections
 CFLAGS += -DCHAOS_KERNEL -I. -Idevices/$(CPU) -I../cslibc/inc
-DEBUG_CFLAGS = -DDEBUG -g3 -O0
+DEBUG_CFLAGS = -g3 -O0
 
 LDFLAGS  = -T$(LDSCRIPT) -nostdlib -nodefaultlibs -nostartupfiles
 LDFLAGS += --gc-sections
@@ -31,6 +31,8 @@ LIBOBJS = $(LIBSRCS:.c=.o)
 
 ifeq ($(NODEBUG),)
 	CFLAGS += $(DEBUG_CFLAGS)
+else
+	CFLAGS += -DNDEBUG
 endif
 
 # --------------------------------------------------------

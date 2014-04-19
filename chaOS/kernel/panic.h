@@ -6,8 +6,8 @@
 
 #include "util/stringify.h"
 
-#define panic(msg)  kpanic(__FILE__ ":" STRINGIFY(__LINE__) ": " msg);
-void kpanic(const char * const msg) __attribute__((noreturn));
+#define chaos(msg)  panic(__FILE__ ":" STRINGIFY(__LINE__) ": " msg);
+void panic(const char * const msg) __attribute__((noreturn));
 
 #if NDEBUG
 #define kassert(ignore)  ((void) 0) // nothing

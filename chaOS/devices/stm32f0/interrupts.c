@@ -2,15 +2,16 @@
 // TODO this whole thing needs to be re-thought
 
 #include "interrupts.h"
+#include "kernel/panic.h"
 
 extern void _estack(void); // linker-supplied address; this type because of the vector table's type
 // TODO no, the above isn't nice -- the conversion should be even more explicit
 
 extern void _start(void) __attribute__((noreturn)); // defined in main.c
 
-// so that the CPU state can be examined after an unexpected interrupt
-void default_exception_handler(void) { while (1) ; }
-void default_interrupt_handler(void) { while (1) ; }
+// TODO say what happened (read the right registers to find out what exception/interrupt we are in)
+void default_exception_handler(void) { chaos("Unexpected exception"); }
+void default_interrupt_handler(void) { chaos("Unexpected interrupt"); }
 
 // this should be written using my macros
 void nmi_handler      (void) __attribute__((interrupt, weak, alias("default_exception_handler")));
