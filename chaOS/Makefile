@@ -15,7 +15,7 @@ CFLAGS  = -std=c11 -lm -W -Wall -Wextra -pedantic
 CFLAGS += -mcpu=$(CPUFAMILY) -mthumb -ffreestanding
 CFLAGS += -DCPUFAMILY=$(CPUFAMILY) -DCPU=$(CPU) -I "devices/$(CPU)"
 CFLAGS += -O2 -ffunction-sections -fdata-sections
-CFLAGS += -I. -I../cslibc/inc
+CFLAGS += -DCHAOS_KERNEL -I. -Idevices/$(CPU) -I../cslibc/inc
 DEBUG_CFLAGS = -DDEBUG -g3 -O0
 
 LDFLAGS  = -T$(LDSCRIPT) -nostdlib -nodefaultlibs -nostartupfiles

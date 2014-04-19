@@ -1,9 +1,12 @@
-#ifndef DEVICE_GPIO_H
-#define DEVICE_GPIO_H
+#ifndef DEVICES_STM32F0_DRIVERS_GPIO_H
+#define DEVICES_STM32F0_DRIVERS_GPIO_H
 
+#include "inc/gpio.h"
 #include "peripherals.h"
 
-//TODO not portable code warning
+#if !CHAOS_KERNEL
+#pragma message "including device-specific driver (" __FILE__ ") -- your code will not be portable!"
+#endif
 
 #define  NPINS  16  // pins per port
 

@@ -1,10 +1,11 @@
-#include "inc/gpio.h"
+/* implements GPIO for STM32F0 */
+
 #include "gpio.h"
 #include "util/bit_manip.h"
 
 #define in_bounds(X)  ((X) <= PORT_MAX)
 
-const Port ports[] = {
+static const Port ports[] = {
     { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTA),
       ._GPIO_RCC_mask = AHBENR_IOPAEN },
     { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTB),
@@ -120,6 +121,7 @@ uint32_t GPIO_read(const unsigned int port, const uint32_t pins, uint32_t * cons
     return GPIO_SUCCESS;
 }
 
+#if NOT_IMPLEMENTED
 uint32_t GPIO_extra_action(const unsigned int port, const uint32_t action,
                            uint32_t * const response) {
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
@@ -127,3 +129,4 @@ uint32_t GPIO_extra_action(const unsigned int port, const uint32_t action,
     //TODO
     return GPIO_UNSUPPORTED_EXTRA;
 }
+#endif

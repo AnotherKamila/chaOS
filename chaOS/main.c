@@ -11,8 +11,7 @@ extern word _sidata, _sdata, _edata, _sbss, _ebss;
 void _start(void) __attribute__((noreturn));
 
 /* --- here starts bullshit --------------------------------------------------------------------- */
-#include "inc/gpio.h"
-#include "devices/stm32f0/drivers/gpio.h"
+#include "drivers/gpio.h"
 #include "binfmt/elf.h"
 
 #define FROM_ADDR  (FLASH_BASE + 0x8000)

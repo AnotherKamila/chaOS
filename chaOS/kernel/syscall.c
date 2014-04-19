@@ -2,8 +2,7 @@
 // TODO get a header file :D
 
 #include "devices/core.h"
-#include "inc/gpio.h"
-#include "devices/stm32f0/drivers/gpio.h"
+#include "drivers/gpio.h"
 
 typedef void (*syscall_fun_t)(void); // syscall_fun_t *f is a pointer to void f(void)
 
