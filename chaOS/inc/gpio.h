@@ -1,5 +1,5 @@
-#ifndef _INC_GPIO_H
-#define _INC_GPIO_H
+#ifndef INC_GPIO_H
+#define INC_GPIO_H
 
 #include "devices/core.h"
 #include "util/bit_manip.h"
@@ -46,15 +46,15 @@ uint32_t GPIO_enable();
   * Function will return error if the port is out of range or
   * writing to the GPIO is locked.
   */
-uint32_t GPIO_enable_port(uint16_t port);
+uint32_t GPIO_enable_port(const unsigned int port);
 
 /** Configure pins.
   *
   * This function configures pins 'pins' of a port 'port'.
   * There is no sanity checking performed on the mode_flags. Illogical
   * values will have an undefined behaviour. The function will return error
-  * value if the port is out of range, pins mask contains pins out of range, 
-  * selected mode could not be set nor emulated on this particular GPIO or 
+  * value if the port is out of range, pins mask contains pins out of range,
+  * selected mode could not be set nor emulated on this particular GPIO or
   * writing to the GPIO is locked.
   * \param mode_flags defaults to a floating input.
   *                   GPIO_INPUT | GPIO_PULLING defaults to a input with pulldown
@@ -64,7 +64,7 @@ uint32_t GPIO_enable_port(uint16_t port);
   *                   a pushpull output, but why the hell would you do it this way?!)
   * \param pins is a bitmask of pins to configure
   */
-uint32_t GPIO_set_pins_mode(uint16_t port, uint32_t pins, uint16_t mode_flags);
+uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins, const uint32_t mode_flags);
 
 /** Write value to the pins.
   *
@@ -74,7 +74,7 @@ uint32_t GPIO_set_pins_mode(uint16_t port, uint32_t pins, uint16_t mode_flags);
   * pins out of range, or writing to the GPIO is locked.
   * \param pins is a bitmask of pins to set
   */
-uint32_t GPIO_write(uint16_t port, uint32_t pins, uint32_t values);
+uint32_t GPIO_write(const unsigned int port, const uint32_t pins, const uint32_t values);
 
 /** Read the value on the pins.
   *
@@ -85,7 +85,7 @@ uint32_t GPIO_write(uint16_t port, uint32_t pins, uint32_t values);
   * \param pins is a bitmask of pins to set
   * \param *data is pointer to a variable where bitmask of data present on the pins will be written
   */
-uint32_t GPIO_read(uint16_t port, uint32_t pins, uint32_t *data);
+uint32_t GPIO_read(const unsigned int port, const uint32_t pins, uint32_t * const data);
 
 /** Take a custom action on the GPIO.
   *
@@ -96,7 +96,7 @@ uint32_t GPIO_read(uint16_t port, uint32_t pins, uint32_t *data);
   * \param action is a bitmask of a custom action documented separately
   * \param *response is variable to which an optional response will be written
   */
-uint32_t GPIO_extra_action(uint16_t port, uint32_t action, uint32_t *response);
+uint32_t GPIO_extra_action(const unsigned int port, const uint32_t action, uint32_t * const response);
 
 
 #endif

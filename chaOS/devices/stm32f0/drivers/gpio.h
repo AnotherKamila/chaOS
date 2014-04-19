@@ -1,5 +1,5 @@
-#ifndef _DEVICE_GPIO_H
-#define _DEVICE_GPIO_H
+#ifndef DEVICE_GPIO_H
+#define DEVICE_GPIO_H
 
 #include "peripherals.h"
 
