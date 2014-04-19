@@ -5,13 +5,13 @@
 
 /* --- Peripherals base address ------------------------------------------------------------------*/
 
-#define PERIPH_BASE  0x40000000
+#define PERIPH_BASE             0x40000000
 
 /* --- Buses base addresses ----------------------------------------------------------------------*/
 
-#define APB_PERIPH_BASE  (PERIPH_BASE)
-#define AHBPERIPH_BASE   (PERIPH_BASE + 0x00020000)
-#define AHB2PERIPH_BASE  (PERIPH_BASE + 0x08000000)
+#define APB_PERIPH_BASE         (PERIPH_BASE)
+#define AHBPERIPH_BASE          (PERIPH_BASE + 0x00020000)
+#define AHB2PERIPH_BASE         (PERIPH_BASE + 0x08000000)
 
 /* --- Peripheral adress offsets -----------------------------------------------------------------*/
 
