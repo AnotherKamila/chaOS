@@ -1,28 +1,12 @@
-/* declares memory-mapped peripherals and related things like flags */
-// TODO this whole thing needs to be re-thought
+/* defines MCU peripherals and related things like flags */
 
-#ifndef DEVICES_STM32F0_PERIPHERALS_H
-#define DEVICES_STM32F0_PERIPHERALS_H
+#ifndef MCUS_CORTEXM0_STM32F0_PERIPHERALS_H
+#define MCUS_CORTEXM0_STM32F0_PERIPHERALS_H
 
 
 #include "core.h"
 
-/* === memory map =============================================================================== */
-
-#define PERIPH_BASE  0x40000000
-
-#define APB_PERIPH_BASE  (PERIPH_BASE)
-#define AHBPERIPH_BASE   (PERIPH_BASE + 0x00020000)
-#define AHB2PERIPH_BASE  (PERIPH_BASE + 0x08000000)
-
-#define GPIO_AHB2_OFFSET_PORTA 0x00000000
-#define GPIO_AHB2_OFFSET_PORTB 0x00000400
-#define GPIO_AHB2_OFFSET_PORTC 0x00000800
-#define GPIO_AHB2_OFFSET_PORTD 0x00000C00
-#define GPIO_AHB2_OFFSET_PORTE 0x00001000
-#define GPIO_AHB2_OFFSET_PORTF 0x00001400
-
-/* --- reset and clock control ----------------------------------------------------------------- */
+/* --- reset and clock control ------------------------------------------------------------------ */
 
 typedef struct {
     _IO uint32_t CR;       // clock control register                 offset 0x00
@@ -42,20 +26,18 @@ typedef struct {
 } RCC_struct;
 
 enum RCC_ahbenr {
-    AHBENR_TSCEN    = (1 << 24),
-    AHBENR_IOPFEN   = (1 << 22),
-    AHBENR_IOPEEN   = (1 << 21),
-    AHBENR_IOPDEN   = (1 << 20),
-    AHBENR_IOPCEN   = (1 << 19),
-    AHBENR_IOPBEN   = (1 << 18),
-    AHBENR_IOPAEN   = (1 << 17),
-    AHBENR_CRCEN    = (1 << 6),
-    AHBENR_FLITFEN  = (1 << 4),
-    AHBENR_SRAMEN   = (1 << 2),
-    AHBENR_DMAEN    = (1 << 0),
+    AHBENR_TSCEN   = (1 << 24),
+    AHBENR_IOPFEN  = (1 << 22),
+    AHBENR_IOPEEN  = (1 << 21),
+    AHBENR_IOPDEN  = (1 << 20),
+    AHBENR_IOPCEN  = (1 << 19),
+    AHBENR_IOPBEN  = (1 << 18),
+    AHBENR_IOPAEN  = (1 << 17),
+    AHBENR_CRCEN   = (1 << 6),
+    AHBENR_FLITFEN = (1 << 4),
+    AHBENR_SRAMEN  = (1 << 2),
+    AHBENR_DMAEN   = (1 << 0),
 };
-
-#define RCC  ((RCC_struct*)(AHBPERIPH_BASE + 0x00001000))
 
 /* --- GPIO ------------------------------------------------------------------------------------- */
 
@@ -76,14 +58,14 @@ typedef struct {
     uint16_t     RESERVED3;
 } GPIO_struct;
 
-#define GPIO_MODER_INPUT_MASK  0x0000000000000000
-#define GPIO_MODER_OUTPUT_MASK 0x5555555555555555
-#define GPIO_MODER_ALT_MASK    0xAAAAAAAAAAAAAAAA
-#define GPIO_MODER_ANALOG_MASK 0xFFFFFFFFFFFFFFFF
+#define GPIO_MODER_INPUT_MASK   0x00000000
+#define GPIO_MODER_OUTPUT_MASK  0x55555555
+#define GPIO_MODER_ALT_MASK     0xAAAAAAAA
+#define GPIO_MODER_ANALOG_MASK  0xFFFFFFFF
 
-#define GPIO_PUPDR_NOPULL_MASK 0x0000000000000000
-#define GPIO_PUPDR_UP_MASK     0x5555555555555555
-#define GPIO_PUPDR_DOWN_MASK   0xAAAAAAAAAAAAAAAA
+#define GPIO_PUPDR_NOPULL_MASK  0x00000000
+#define GPIO_PUPDR_UP_MASK      0x55555555
+#define GPIO_PUPDR_DOWN_MASK    0xAAAAAAAA
 
 enum GPIO_mode {
     GPIO_MODE_INPUT  = 0x0,

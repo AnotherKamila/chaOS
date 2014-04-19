@@ -5,19 +5,13 @@
 
 #define in_bounds(X)  ((X) <= PORT_MAX)
 
-static const Port ports[] = {
-    { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTA),
-      ._GPIO_RCC_mask = AHBENR_IOPAEN },
-    { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTB),
-      ._GPIO_RCC_mask = AHBENR_IOPBEN },
-    { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTC),
-      ._GPIO_RCC_mask = AHBENR_IOPCEN },
-    { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTD),
-      ._GPIO_RCC_mask = AHBENR_IOPDEN },
-    { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTE),
-      ._GPIO_RCC_mask = AHBENR_IOPEEN },
-    { .GPIO = (GPIO_struct*)(AHB2PERIPH_BASE + GPIO_AHB2_OFFSET_PORTF),
-      ._GPIO_RCC_mask = AHBENR_IOPFEN },
+static const enum RCC_ahbenr port_enable_bit[] = {
+    AHBENR_IOPAEN,
+    AHBENR_IOPBEN,
+    AHBENR_IOPCEN,
+    AHBENR_IOPDEN,
+    AHBENR_IOPEEN,
+    AHBENR_IOPFEN,
 };
 
 uint32_t GPIO_enable() {
@@ -28,7 +22,7 @@ uint32_t GPIO_enable() {
 uint32_t GPIO_enable_port(const unsigned int port) {
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
 
-    bit_mon(RCC->AHBENR, ports[port]._GPIO_RCC_mask);
+    bit_mon(RCC->AHBENR, port_enable_bit[port]);
     return GPIO_SUCCESS;
 }
 
@@ -53,10 +47,10 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
     }
 
     //TODO disable interrupts
-    uint32_t moder = ports[port].GPIO->MODER;
+    uint32_t moder = GPIO[port]->MODER;
     bit_moff(moder, bit_mask);  // Reset required pins
     bit_mon(moder, settings_mask);  // Apply settings mask
-    ports[port].GPIO->MODER = moder;
+    GPIO[port]->MODER = moder;
     //TODO enable interrupts
 
 
@@ -64,11 +58,11 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     if ((mode_flags & GPIO_OUTPUT) && (mode_flags & GPIO_OPENDRAIN)) {
         //TODO disable interrupts
-        bit_mon(ports[port].GPIO->OTYPER, pins);
+        bit_mon(GPIO[port]->OTYPER, pins);
         //TODO enable interrupts
     } else {
         //TODO disable interrupts
-        bit_moff(ports[port].GPIO->OTYPER, pins);
+        bit_moff(GPIO[port]->OTYPER, pins);
         //TODO enable interrupts
     }
 
@@ -88,10 +82,10 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
     }
 
     //TODO disable interrupts
-    uint32_t pupdr = ports[port].GPIO->PUPDR;
+    uint32_t pupdr = GPIO[port]->PUPDR;
     bit_moff(pupdr, bit_mask); // Reset required pins
     bit_mon(pupdr, settings_mask); // Apply settings mask
-    ports[port].GPIO->PUPDR = pupdr;
+    GPIO[port]->PUPDR = pupdr;
     //TODO enable interrupts
 
 
@@ -110,14 +104,14 @@ uint32_t GPIO_write(const unsigned int port, const uint32_t pins, const uint32_t
     bit_mon(sr, values & pins);
     // Writing 1 to higher 16 bits of BSRR controls which pins should be turned off
     bit_mon(sr, (~values & pins) << 16);
-    ports[port].GPIO->BSRR = sr;
+    GPIO[port]->BSRR = sr;
     return GPIO_SUCCESS;
 }
 
 uint32_t GPIO_read(const unsigned int port, const uint32_t pins, uint32_t * const data) {
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
 
-    *data = ports[port].GPIO->IDR & pins;
+    *data = GPIO[port]->IDR & pins;
     return GPIO_SUCCESS;
 }
 
