@@ -104,5 +104,14 @@ uint32_t GPIO_read(const unsigned int port, const uint32_t pins, uint32_t * cons
  */
 uint32_t GPIO_extra_action(const unsigned int port, const uint32_t action, uint32_t * const response);
 
+/**
+ * convenience macros for manipulating a single pin or all pins, or setting pins to just 0 or 1
+ */
+#define PIN(i)   (1u<<(i))
+#define NONE     ((uint32_t)0u)
+#define ALL      (~NONE)
+#define ALL_OFF  NONE
+#define ALL_ON   ALL
+
 
 #endif

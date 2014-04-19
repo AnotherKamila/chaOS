@@ -24,4 +24,8 @@ typedef struct {
 
 #define PORT_MAX 5
 
+#define LED_PORT  PORTC
+#define LED1      PIN(8)
+#define LED2      PIN(9)
+
 #endif
