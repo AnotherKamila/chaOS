@@ -4,7 +4,7 @@
 #define MCUS_CORTEXM0_COMMON_MEMMAP_H
 
 
-#include "comm_peripherals.h"
+#include "common_peripherals.h"
 
 /* --- Cortex M0 peripherals base address --------------------------------------------------------*/
 
