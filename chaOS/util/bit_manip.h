@@ -17,6 +17,10 @@
 #define bit_get(x, i)  ((x) & (1 << (i)))
 #define bit_set(x, i, v)  if (bit_get(x, i) == !v) bit_tgl(x, i)
 
+#define DIV4(x) ((x) >> 2)
+#define MOD4(x) ((x) & 0x3)
+#define MUL8(x) ((x) << 3)
+
 uint32_t bits_stretch(uint32_t x);
 uint32_t bits_expand(uint32_t x);
 
