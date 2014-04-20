@@ -1,6 +1,7 @@
 #ifndef DEVICES_STM32F0_DRIVERS_GPIO_H
 #define DEVICES_STM32F0_DRIVERS_GPIO_H
 
+
 #include "inc/gpio.h"
 #include "peripherals.h"
 #include "memmap.h"

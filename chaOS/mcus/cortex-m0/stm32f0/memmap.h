@@ -3,6 +3,7 @@
 #ifndef MCUS_CORTEXM0_STM32F0_MEMMAP_H
 #define MCUS_CORTEXM0_STM32F0_MEMMAP_H
 
+
 #include "peripherals.h"
 
 /* --- Peripherals base address ------------------------------------------------------------------*/
@@ -15,7 +16,7 @@
 #define AHBPERIPH_BASE          (PERIPH_BASE + 0x00020000)
 #define AHB2PERIPH_BASE         (PERIPH_BASE + 0x08000000)
 
-/* --- Peripheral adress offsets -----------------------------------------------------------------*/
+/* --- Peripheral address offsets ----------------------------------------------------------------*/
 
 #define GPIO_AHB2_OFFSET_PORTA  0x00000000
 #define GPIO_AHB2_OFFSET_PORTB  0x00000400

@@ -30,7 +30,7 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
                             const uint32_t mode_flags) {
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
 
-    // Interleave `pins` mask with itself because MODER and PUPDER have 2 bits per pin.
+    // interleave `pins` mask with itself, (MODER and PUPDER have 2 bits per pin)
     uint32_t bit_mask = bits_expand(pins);
 
     /* --- MODER setting ------------------------------------------------------------------------ */
@@ -48,8 +48,8 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     //TODO disable interrupts
     uint32_t moder = GPIO[port]->MODER;
-    bit_moff(moder, bit_mask);  // Reset required pins
-    bit_mon(moder, settings_mask);  // Apply settings mask
+    bit_moff(moder, bit_mask); // Reset required pins
+    bit_mon(moder, settings_mask); // Apply settings mask
     GPIO[port]->MODER = moder;
     //TODO enable interrupts
 
@@ -69,10 +69,10 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     /* --- PUPDR setting ------------------------------------------------------------------------ */
 
-    // Default value: no push/pull resistor
+    // default value: no push/pull resistor
     settings_mask = 0;
     if (mode_flags & (GPIO_PULLING | GPIO_OPENDRAIN)) {
-        // If GPIO is pulling intput or opendrain output, we must also set a pull/push resistor
+        // if GPIO is pulling intput or opendrain output, we must also set a pull/push resistor
         if (mode_flags & GPIO_PULLUP) {
             settings_mask = GPIO_PUPDR_UP_MASK & bit_mask;
         }
@@ -83,8 +83,8 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     //TODO disable interrupts
     uint32_t pupdr = GPIO[port]->PUPDR;
-    bit_moff(pupdr, bit_mask); // Reset required pins
-    bit_mon(pupdr, settings_mask); // Apply settings mask
+    bit_moff(pupdr, bit_mask); // reset required pins
+    bit_mon(pupdr, settings_mask); // apply settings mask
     GPIO[port]->PUPDR = pupdr;
     //TODO enable interrupts
 
@@ -100,9 +100,9 @@ uint32_t GPIO_write(const unsigned int port, const uint32_t pins, const uint32_t
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
 
     uint32_t sr = 0;
-    // Writing 1 to lower 16 bits of BSRR controls which pins should be turned on
+    // writing 1 to lower 16 bits of BSRR controls which pins should be turned on
     bit_mon(sr, values & pins);
-    // Writing 1 to higher 16 bits of BSRR controls which pins should be turned off
+    // writing 1 to higher 16 bits of BSRR controls which pins should be turned off
     bit_mon(sr, (~values & pins) << 16);
     GPIO[port]->BSRR = sr;
     return GPIO_SUCCESS;
