@@ -28,6 +28,18 @@ typedef struct {
     _O  uint32_t CALIB;     // Calibration value register                           offset 0x0C
 } STK_struct;
 
+enum STK_CSR_bits {
+    CSR_ENABLE      = 0,
+    CSR_TICKINT     = 1,
+    CSR_CLKSOURCE   = 2,
+    CSR_COUNTFLAG   = 16,
+};
+
+enum STK_CALIB_bits {
+    CALIB_NOREF       = 31,
+    CALIB_SKEW        = 30,
+};
+
 /* --- Nested vectored interrupt controller ------------------------------------------------------*/
 
 typedef struct {
