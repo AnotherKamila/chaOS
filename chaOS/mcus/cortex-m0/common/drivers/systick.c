@@ -33,6 +33,21 @@ int systick_config(const enum SysTick_clocksrc clock, const bool do_interrupt) {
     #endif
 }
 
+void systick_disable_interrupt() {
+    #ifdef HAS_SYSTICK
+    bit_moff(csr_local, (1 << CSR_TICKINT));
+    STK->CSR = csr_local;
+    #endif
+}
+
+bool systick_is_interrupt_enabled() {
+    #ifdef HAS_SYSTICK
+    return csr_local & (1 << CSR_TICKINT);
+    #else
+    return false
+    #endif
+}
+
 int systick_enable() {
     #ifndef HAS_SYSTICK
     return SYSTICK_FEATURE_MISSING;

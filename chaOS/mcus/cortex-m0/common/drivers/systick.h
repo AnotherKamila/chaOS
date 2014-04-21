@@ -28,6 +28,16 @@ enum SysTick_clocksrc {
 int systick_config(const enum SysTick_clocksrc clock, const bool do_interrupt);
 
 /**
+ * Disables the SysTick interrupt
+ */
+void systick_disable_interrupt();
+
+/**
+ * Checks if the SysTick interrupt is enabled
+ */
+bool systick_is_interrupt_enabled();
+
+/**
  * Enables the SysTick timer.
  *
  * After SysTick timer is enabled it starts counting down from current value.
