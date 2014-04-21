@@ -1,5 +1,9 @@
 /* defines STM32F0 hardware interrupt numbers */
 
+#ifndef MCUS_CORTEXM0_STM32F0_HW_INTERRUPTS_H
+#define MCUS_CORTEXM0_STM32F0_HW_INTERRUPTS_H
+
+
 #define INT_WWDG                  0 // Window watchdog interrupt
 #define INT_PVD_VDDIO2            1 // PVD and V_{ddio2} comparator interrupt (EXTI lines 16 and 31)
 #define INT_RTC                   2 // RTC interrupts (EXTI lines 17, 19 and 20)
@@ -32,3 +36,6 @@
 #define INT_USART3_4             29 // USART 3 and 4 global interrupt
 #define INT_CEC_CAN              30 // CEC and CAN global interrupts (combined with EXTI line 27)
 #define INT_USB                  31 // USB global interrupt (combined with EXTI line 18)
+
+
+#endif
