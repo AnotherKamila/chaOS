@@ -17,7 +17,7 @@ void mm_init(void);
  *
  * O(N) -- needs to check all blocks, and also defragments along the way
  */
-void* kmalloc(size_t size); // TODO add flags
+void* kmalloc(size_t size) __attribute((malloc)); // TODO add flags
 
 /**
  * frees the memory at `ptr` if `ptr` is a valid pointer previously returned by `malloc` and not yet
