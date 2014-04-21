@@ -4,7 +4,7 @@
 #define KERNEL_PANIC_H
 
 
-#include "util/stringify.h"
+#include "util/macros.h"
 
 #define chaos(msg)  panic(__FILE__ ":" STRINGIFY(__LINE__) ": " msg);
 void panic(const char * const msg) __attribute__((noreturn));
