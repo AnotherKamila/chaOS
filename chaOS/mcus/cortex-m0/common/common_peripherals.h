@@ -19,6 +19,15 @@ typedef struct {
     _IO uint32_t SHPR[2];   // System handler priority register                     offset 0x1C
 } SCB_struct;
 
+enum NVIC_ICSR_bits {
+    ICSR_NMIPENDSET = 31,
+    ICSR_PENDSVSET  = 28,
+    ICSR_PENDSVCLR  = 27,
+    ICSR_PENDSTSET  = 26,
+    ICSR_PENDSTCLR  = 25,
+    ICSR_ISRPENDING = 22,
+};
+
 /* --- SysTick timer -----------------------------------------------------------------------------*/
 
 typedef struct {
