@@ -2,7 +2,7 @@
 
 #include "core.h"
 #include "kernel/panic.h"
-#include "inc/interrupt_def.h"
+#include "kernel/isr.h"
 
 extern void _estack(void); // linker-supplied address; this type because of the vector table's type
 // TODO no, the above isn't nice -- the conversion should be more explicit
