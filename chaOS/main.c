@@ -2,7 +2,8 @@
 
 #include "string.h"
 #include "core.h"
-#include "kernel/mm.h"
+#include "kernel/mm/mm.h"
+#include "kernel/peripherals/initialization.h"
 #include "kernel/panic.h"
 
 /* linker-supplied addresses */
@@ -27,20 +28,16 @@ static void bullshit(void) {
     kassert(*test == 47);
     kfree(test);
 
-    GPIO_enable_port(PORTC);
-    GPIO_set_pins_mode(PORTC, (1 << 8) | (1 << 9), GPIO_OUTPUT);
-
+    extern int do_spawn(program_img*);
     program_img program = { .img = (void*)FROM_ADDR };
-    exec_img ximg;
-    if (load_elf(&program, &ximg) == 0) {
-        ximg.entry();
-    }
+    do_spawn(&program);
 }
 /* --- here it ends ----------------------------------------------------------------------------- */
 
 static void kmain(void) {
     // initialize kernel subsystems
     mm_init();
+    all_peripherals_init();
 
     bullshit();
 }
