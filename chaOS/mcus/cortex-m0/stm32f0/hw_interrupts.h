@@ -1,5 +1,8 @@
 /* defines STM32F0 hardware interrupt numbers */
 
+#ifndef MCUS_CORTEXM0_STM32F0_HW_INTERRUPTS_H
+#define MCUS_CORTEXM0_STM32F0_HW_INTERRUPTS_H
+
 /*
  * Those are numbered according to their exception numbers, in general exception number of
  * IRQ is IRQ number + _IRQ_OFFSET (defined in `system_interrupts.h`).
@@ -41,3 +44,5 @@
 #define INT_USART3_4             45 // USART 3 and 4 global interrupt
 #define INT_CEC_CAN              46 // CEC and CAN global interrupts (combined with EXTI line 27)
 #define INT_USB                  47 // USB global interrupt (combined with EXTI line 18)
+
+#endif
