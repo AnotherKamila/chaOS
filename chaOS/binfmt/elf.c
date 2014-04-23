@@ -1,8 +1,10 @@
-#include "binfmt/common.h"
 #include "elf.h"
+#include "binfmt/common.h"
+#include "kernel/mm/mm.h"
 #include "string.h"
 
-#define TO_ADDR  (RAM_BASE + 0x200) // TODO
+// align x to up to the nearest multiple of `to`; `to` must be a power of 2
+#define ALIGN(to, x)  ((x+(to)-1) & ~((to)-1))
 
 intern bool is_elf_x(ELF32_hdr *hdr) {
     return hdr->e_ident[0] == EID0 &&
@@ -19,9 +21,8 @@ intern bool is_compatible(ELF32_hdr *hdr) {
 
 // TODO load from something file-like
 int load_elf(const program_img *prg, exec_img *res) {
-    uintptr_t from_addr = (uintptr_t)prg->img;
-    uintptr_t to_addr = TO_ADDR; // TODO allocate memory instead of this :D
-    // assuming my binary starts at 0x0
+    // note: I am assuming my binary starts at 0x0 throughout this function
+    const uintptr_t from_addr = (uintptr_t)prg->img; // TODO this should read a file one day
     ELF32_hdr *hdr = (ELF32_hdr*)prg->img;
     if (!is_elf_x(hdr)) {
         return E_NOT_ELF_X;
@@ -33,7 +34,21 @@ int load_elf(const program_img *prg, exec_img *res) {
     ELF32_shdr *sections = (ELF32_shdr*)((uintptr_t)hdr + hdr->e_shoff);
     char *strings = (char*)(from_addr + sections[hdr->e_shstrndx].sh_off);
 
-    // prepare .bss, relocate GOT, load .text and .data
+    // pass 1: just find out the future executable image's size and allocate memory
+    size_t size = 0;
+    for (int sec_idx = 0; sec_idx < hdr->e_shnum; ++sec_idx) {
+        ELF32_shdr *shdr = &sections[sec_idx];
+        if (shdr->sh_flags & SHF_ALLOC && shdr->sh_size) { // non-empty allocatable sections
+            // sh_size needs to be aligned according to the next section's addralign, as that will
+            // start aligned and therefore any holes created by the alignment must be accounted for
+            const int align = (sec_idx+1 < hdr->e_shnum) ? (&sections[sec_idx+1])->sh_addralign : 1;
+            size += ALIGN(align, shdr->sh_size);
+        }
+    }
+    const uintptr_t to_addr = (uintptr_t)kmalloc(size);
+    res->begin = (void*)to_addr; res->end = (void*)(to_addr + size);
+
+    // pass 2: relocate GOT, prepare .bss, load .text and .data
     for (int sec_idx = 0; sec_idx < hdr->e_shnum; ++sec_idx) {
         ELF32_shdr *shdr = &sections[sec_idx];
         if (shdr->sh_flags & SHF_ALLOC && shdr->sh_size) { // non-empty allocatable sections
