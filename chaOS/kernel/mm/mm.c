@@ -24,8 +24,8 @@ typedef uint32_t moff_t;
 
 extern const byte _kernel_end;  // linker-supplied address -- end of static kernel structures in RAM
 extern const byte _stack_limit; // linker-supplied address -- above there be dragons (eh, stack)
-#define mem_start  ((size_t)(&_kernel_end)) // start of managed memory
-#define mem_size   ((moff_t)(&_stack_limit - &_kernel_end)) // size of managed memory
+#define mem_start  ((uintptr_t)(ALIGN((size_t)(&_kernel_end)))) // start of managed memory
+#define mem_size   ((moff_t)(ALIGN((size_t)(&_stack_limit) - (size_t)(&_kernel_end)))) // size of managed memory
 
 typedef uint32_t* mhdr_t;
 intern mhdr_t hdr_at(const moff_t addr) { return (uint32_t*)(mem_start + addr); }
