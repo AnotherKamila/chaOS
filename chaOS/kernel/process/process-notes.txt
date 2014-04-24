@@ -1,0 +1,41 @@
+A process is:
+
+ - PID                                                                               | nice to have
+ - permissions something something (later)                                           | once it is not pointless
+ - working directory (later)                                                         | when hell freezes
+ - nice stuff: associated executable file                                            | who needs that stuff? (anyway, I'll do it when I have files)
+ - environment                                                                       | when hell freezes
+ - arguments!                                                                        | when hell freezes
+ - PC (probably in registers)                                                        | required
+ - SP (probably in registers, but actually needs to be set separately, as registers  | required
+   are on the stack, therefore I need to know where to find the stack... :D)         |
+ - registers (hopefully on the stack)                                                | required
+ - stack (part of memory image)                                                      | required
+ - memory image (just start, end is known by MM)                                     | required
+ - memory map (stuff I'd tell the MMU/MPU if there was one, but there ain't :D)      | no MMU/MPU now => not necessary
+ - file descriptors and stuff -- open resources                                      | somewhat required once we have resources :D
+ - stuff for the scheduler:                                                          |
+   - whether it's blocking and on what                                               | required once we have something to block on
+   - priority and stuff... later!                                                    | maybe one day
+
+Initialization:
+ - create memory image
+ - stuff process info into the process table
+   - set PC to entry point, SP to end
+
+Switch:
+ - prev process:
+   - store SP, PC
+   - store registers
+   - do something about resources (later)
+ - next process:
+   - load registers
+   - do something about resources (later)
+   - set SP
+   - set PC (perhaps by a jump, or maybe a special instruction, I have no idea)
+
+--------------------------------------------------
+
+stack:
+ - set active stack to process stack by setting CONTROL |= (1<<1) (probably a special instruction will be needed); set SP value to something smart; then use ISB to make sure following instructions are executed after selecting the process stack (@pipelining)
+ - find out which registers are stored when entering the interrupt and where, find out how to abuse that for context switching

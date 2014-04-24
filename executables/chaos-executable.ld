@@ -2,15 +2,7 @@
    referenced in the Makefile and contains the memory map - FLASH and RAM
    address ranges */
 
-/*
-_estack = ORIGIN(RAM) + LENGTH(RAM);
-
-_min_stack_sz = 256;
-PROVIDE(_stack_limit = _estack - _min_stack_sz);
-
-PROVIDE(FLASH_BASE = ORIGIN(FLASH));
-PROVIDE(RAM_BASE   = ORIGIN(RAM));
-*/
+stack_sz = 256; /* TODO document the terrible things that I am doing */
 
 ENTRY(main);  /* directly! (creepy :D) - for now */
 
@@ -56,12 +48,10 @@ SECTIONS {
         _ebss = .;
     }
 
-    /* --- Cause an error if there is not enough RAM left for the stack ----- */
-/*
+    /* --- preallocate room for the stack -- chaOS expect this for simplicity ------------------- */
     ._stack : {
-        . += _min_stack_sz;
+        . += stack_sz;
     }
-*/
 
     /* --- Debug info ------------------------------------------------------- */
     .stab          0 : { *(.stab) }

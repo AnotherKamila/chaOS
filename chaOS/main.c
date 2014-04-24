@@ -3,6 +3,7 @@
 #include "string.h"
 #include "core.h"
 #include "kernel/mm/mm.h"
+#include "kernel/process/scheduler.h"
 #include "kernel/peripherals/initialization.h"
 #include "kernel/panic.h"
 
@@ -12,9 +13,6 @@ extern word _sidata, _sdata, _edata, _sbss, _ebss;
 void _start(void) __attribute__((noreturn));
 
 /* --- here starts bullshit --------------------------------------------------------------------- */
-#include "drivers/gpio.h"
-#include "binfmt/elf.h"
-
 #define FROM_ADDR  (FLASH_BASE + 0x8000)
 
 static void bullshit(void) {
@@ -37,9 +35,11 @@ static void bullshit(void) {
 static void kmain(void) {
     // initialize kernel subsystems
     mm_init();
+    sched_init();
     all_peripherals_init();
 
     bullshit();
+    sched_run();
 }
 
 void _start(void) {
@@ -48,5 +48,5 @@ void _start(void) {
 
     kmain();
 
-    while (1) ; // TODO sleep
+    while (1) ; // TODO sleep/shutdown
 }
