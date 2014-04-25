@@ -12,9 +12,9 @@
 
 /* --- Buses base addresses ----------------------------------------------------------------------*/
 
-#define APB_PERIPH_BASE         (PERIPH_BASE)
-#define AHBPERIPH_BASE          (PERIPH_BASE + 0x00020000)
-#define AHB2PERIPH_BASE         (PERIPH_BASE + 0x08000000)
+#define  APB_PERIPH_BASE        (PERIPH_BASE)
+#define AHB1_PERIPH_BASE        (PERIPH_BASE + 0x00020000)
+#define AHB2_PERIPH_BASE        (PERIPH_BASE + 0x08000000)
 
 /* --- Peripheral address offsets ----------------------------------------------------------------*/
 
@@ -25,7 +25,7 @@
 #define GPIO_AHB2_OFFSET_PORTE  0x00001000
 #define GPIO_AHB2_OFFSET_PORTF  0x00001400
 
-#define RCC_AHB_OFFSET          0x00001000
+#define RCC_AHB1_OFFSET         0x00001000
 
 /* --- Peripherals declaration -------------------------------------------------------------------*/
 
