@@ -78,9 +78,9 @@
 #define INT_COMP456              81 // COMP4 & COMP5 & COMP6 interrupts & EXTI Lines 30, 31 and 32
 #define INT_COMP7                82 // COMP7 interrupt combined with EXTI Line 33 interrupt
 // 83 - 89: RESERVED
-#define INT_USB_HP               90 // USB High priority interrupt (after remap)
-#define INT_USB_LP               91 // USB Low priority interrupt (after remap)
-#define INT_USB_WKUP             92 // USB wake up from Suspend and EXTI Line 18 (after remap)
+#define INT_USB_HP_REMAP         90 // USB High priority interrupt (after remap)
+#define INT_USB_LP_REMAP         91 // USB Low priority interrupt (after remap)
+#define INT_USB_WKUP_REMAP       92 // USB wake up from Suspend and EXTI Line 18 (after remap)
 // 94 - 96: RESERVED
 #define INT_FPU                  97 // Floating point interrupt
 
