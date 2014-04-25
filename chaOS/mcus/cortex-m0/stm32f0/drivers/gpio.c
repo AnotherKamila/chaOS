@@ -1,4 +1,4 @@
-/* implements GPIO for STM32F0 */
+/* implements GPIO for STM32F0 / STM32F3 */
 
 #include "gpio.h"
 #include "util/bit_manip.h"

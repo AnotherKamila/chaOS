@@ -1,5 +1,7 @@
-#ifndef DEVICES_STM32F0_DRIVERS_GPIO_H
-#define DEVICES_STM32F0_DRIVERS_GPIO_H
+/* STM32F0 and STM32F3 device-specific GPIO header */
+
+#ifndef DEVICES_STM32F0F3_DRIVERS_GPIO_H
+#define DEVICES_STM32F0F3_DRIVERS_GPIO_H
 
 
 #include "inc/gpio.h"
