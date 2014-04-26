@@ -1,4 +1,4 @@
-/* Implements SysTick timer for Cortex-M0 processors */
+/* Implements SysTick timer for Cortex-M0 and Cortex-M4 processors */
 
 #include "systick.h"
 #include "util/bit_manip.h"
