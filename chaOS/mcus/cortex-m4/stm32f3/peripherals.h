@@ -24,21 +24,21 @@ typedef struct {
     _IO uint32_t CFGR3;    // clock configuration register 3         offset 0x30
 } RCC_struct;
 
-enum RCC_ahbenr {
-    AHBENR_ADC32EN = (1 << 29),
-    AHBENR_ADC12EN = (1 << 28),
-    AHBENR_TSCEN   = (1 << 24),
-    AHBENR_IOPFEN  = (1 << 22),
-    AHBENR_IOPEEN  = (1 << 21),
-    AHBENR_IOPDEN  = (1 << 20),
-    AHBENR_IOPCEN  = (1 << 19),
-    AHBENR_IOPBEN  = (1 << 18),
-    AHBENR_IOPAEN  = (1 << 17),
-    AHBENR_CRCEN   = (1 << 6),
-    AHBENR_FLITFEN = (1 << 4),
-    AHBENR_SRAMEN  = (1 << 2),
-    AHBENR_DMA2EN  = (1 << 1),
-    AHBENR_DMA1EN  = (1 << 0),
+enum RCC_AHBENR_bits {
+    AHBENR_ADC32EN = 29,
+    AHBENR_ADC12EN = 28,
+    AHBENR_TSCEN   = 24,
+    AHBENR_IOPFEN  = 22,
+    AHBENR_IOPEEN  = 21,
+    AHBENR_IOPDEN  = 20,
+    AHBENR_IOPCEN  = 19,
+    AHBENR_IOPBEN  = 18,
+    AHBENR_IOPAEN  = 17,
+    AHBENR_CRCEN   = 6,
+    AHBENR_FLITFEN = 4,
+    AHBENR_SRAMEN  = 2,
+    AHBENR_DMA2EN  = 1,
+    AHBENR_DMA1EN  = 0,
 };
 
 /* --- GPIO ------------------------------------------------------------------------------------- */

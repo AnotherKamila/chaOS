@@ -5,13 +5,13 @@
 
 #define in_bounds(X)  ((X) <= PORT_MAX)
 
-static const enum RCC_ahbenr port_enable_bit[] = {
-    AHBENR_IOPAEN,
-    AHBENR_IOPBEN,
-    AHBENR_IOPCEN,
-    AHBENR_IOPDEN,
-    AHBENR_IOPEEN,
-    AHBENR_IOPFEN,
+static const uint32_t port_enable_bit[] = {
+    (1 << AHBENR_IOPAEN),
+    (1 << AHBENR_IOPBEN),
+    (1 << AHBENR_IOPCEN),
+    (1 << AHBENR_IOPDEN),
+    (1 << AHBENR_IOPEEN),
+    (1 << AHBENR_IOPFEN),
 };
 
 uint32_t GPIO_enable() {
