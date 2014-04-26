@@ -11,5 +11,7 @@
 // see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
 #define ARM_BLX_SHIT  1
 
+#define HAS_SYSTICK  1
+
 
 #endif
