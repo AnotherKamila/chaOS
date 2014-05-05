@@ -34,23 +34,23 @@ uint32_t systick_get_status() {
     return SYSTICK_FLAG_DISABLED; // If systick is missing it cannot be enabled
 }
 
-int systick_read(uint32_t *value __attribute__((unused))) {
+int systick_read(uint32_t * const value __attribute__((unused))) {
     return SYSTICK_FEATURE_MISSING;
 }
 
-int systick_write(uint32_t value __attribute__((unused))) {
+int systick_write(const uint32_t value __attribute__((unused))) {
     return SYSTICK_FEATURE_MISSING;
 }
 
-int systick_set_top(uint32_t value __attribute__((unused))) {
+int systick_set_top(const uint32_t value __attribute__((unused))) {
     return SYSTICK_FEATURE_MISSING;
 }
 
-int systick_get_top(uint32_t *value __attribute__((unused))) {
+int systick_get_top(uint32_t * const value __attribute__((unused))) {
     return SYSTICK_FEATURE_MISSING;
 }
 
-int systick_get_calibration(uint32_t *value __attribute__((unused))) {
+int systick_get_calibration(uint32_t *const value __attribute__((unused))) {
     return SYSTICK_FEATURE_MISSING;
 }
 
@@ -111,12 +111,12 @@ uint32_t systick_get_status() {
     return flags;
 }
 
-int systick_read(uint32_t *value) {
+int systick_read(uint32_t * const value) {
     *value = STK->CVR;
     return SYSTICK_SUCCESS;
 }
 
-int systick_write(uint32_t value) {
+int systick_write(const uint32_t value) {
     if (value & 0xFF000000) {
         //Highest 8 bits are reserved and cannot be written to
         return SYSTICK_VAL_OUT_OF_RANGE;
@@ -125,7 +125,7 @@ int systick_write(uint32_t value) {
     return SYSTICK_SUCCESS;
 }
 
-int systick_set_top(uint32_t value) {
+int systick_set_top(const uint32_t value) {
     if (value & 0xFF000000) {
         //Highest 8 bits are reserved and cannot be written to
         return SYSTICK_VAL_OUT_OF_RANGE;
@@ -134,12 +134,12 @@ int systick_set_top(uint32_t value) {
     return SYSTICK_SUCCESS;
 }
 
-int systick_get_top(uint32_t *value) {
+int systick_get_top(uint32_t * const value) {
     *value = STK->RVR;
     return SYSTICK_SUCCESS;
 }
 
-int systick_get_calibration(uint32_t *value) {
+int systick_get_calibration(uint32_t * const value) {
     //Mask out reserved bits
     if (STK->CALIB & 0x00FFFFFF) {
         //Calibration value is not zero, therefore is known

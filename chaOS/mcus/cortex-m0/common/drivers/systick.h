@@ -66,28 +66,28 @@ uint32_t systick_get_status();
 /**
  * Reads the current SysTick timer value
  */
-int systick_read(uint32_t *value);
+int systick_read(uint32_t * const value);
 
 /**
  * Sets the current SysTick timer value
  */
-int systick_write(uint32_t value);
+int systick_write(const uint32_t value);
 
 /**
  * Sets the SysTick timer reload value
  */
-int systick_set_top(uint32_t value);
+int systick_set_top(const uint32_t value);
 
 /**
  * Gets the current SysTick timer reload value
  */
-int systick_get_top(uint32_t *value);
+int systick_get_top(uint32_t * const value);
 
 /**
  * Gets the exact SysTick 10ms calibration value or 0 if the value is not known.
  *
  * \return SYSTICK_CALIB_UNKNOWN if exact calibration value is not known.
  */
-int systick_get_calibration(uint32_t *value);
+int systick_get_calibration(uint32_t * const value);
 
 #endif
