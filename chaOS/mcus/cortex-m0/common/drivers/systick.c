@@ -73,7 +73,7 @@ int systick_config(const enum SysTick_clocksrc clock, const bool do_interrupt) {
     systick_write(0);
 
     bit_moff(csr_local, (1 << CSR_CLKSOURCE) | (1 << CSR_TICKINT));
-    bit_mon(csr_local, (clock << CSR_CLKSOURCE) | (do_interrupt << CSR_TICKINT));
+    bit_mon(csr_local, (clock << CSR_CLKSOURCE) | (((uint32_t)do_interrupt) << CSR_TICKINT));
 
     STK->CSR = csr_local;
 
