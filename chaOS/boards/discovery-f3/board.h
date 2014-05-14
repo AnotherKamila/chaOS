@@ -17,8 +17,8 @@ static const bool port_connected[PORT_MAX+1] = {  true,  true,  true,  true,  tr
 #define LED8      PIN(14)
 #define LED6      PIN(15)
 
-#define PANIC_LED  LED3
-#define PANIC_PORT LED_PORT
+#define PANIC_LED   LED3
+#define PANIC_PORT  LED_PORT
 
 #define BLUE_LED   LED4
 #define GREEN_LED  LED7

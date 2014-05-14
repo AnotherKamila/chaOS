@@ -54,5 +54,11 @@ typedef struct {
     _IO uint32_t IPR[8];    // Interrupt priority register                          offset 0x300
 } NVIC_struct;
 
+/* --- Cortex M0 peripherals declaration ---------------------------------------------------------*/
+
+extern SCB_struct  * const SCB;
+extern STK_struct  * const STK;
+extern NVIC_struct * const NVIC;
+
 
 #endif

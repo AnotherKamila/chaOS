@@ -18,11 +18,5 @@
 #define CORE_PBASE_SCB2_OFFSET      0x0000ED00
 #define CORE_PBASE_NVIC2_OFFSET     0x0000EF00
 
-/* --- Cortex M0 peripherals declaration ---------------------------------------------------------*/
-
-extern SCB_struct  * const SCB;
-extern STK_struct  * const STK;
-extern NVIC_struct * const NVIC;
-
 
 #endif

@@ -14,9 +14,5 @@
 
 #define CORE_PBASE_SYSTICK_OFFSET   0x0000E010
 
-/* --- Cortex M0 peripherals declaration ---------------------------------------------------------*/
-
-extern STK_struct  * const STK;
-
 
 #endif

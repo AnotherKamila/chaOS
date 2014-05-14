@@ -93,5 +93,10 @@ enum GPIO_ospeed {
     GPIO_OSPEED_50MHz = 0x3,
 };
 
+/* --- Peripherals declaration -------------------------------------------------------------------*/
+
+extern GPIO_struct * const GPIO[];
+extern RCC_struct  * const RCC;
+
 
 #endif

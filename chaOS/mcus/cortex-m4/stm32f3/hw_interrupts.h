@@ -5,7 +5,7 @@
 
 
 /*
- * Those are numbered according to their exception numbers, in general exception number of
+ * These are numbered according to their exception numbers, in general exception number of
  * IRQ is IRQ number + _IRQ_OFFSET (defined in `system_interrupts.h`).
  * For exception numbers see:
  * http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0553a/BABIFJFG.html
@@ -61,7 +61,7 @@
 #define INT_TIM8_TRG_COM         61 // TIM8 Trigger and commutation interrupts
 #define INT_TIM8_CC              62 // TIM8 capture compare interrupt
 #define INT_ADC3                 63 // ADC3 global interrupt
-// 64 - 66: RESERVED
+// 64 - 66: reserved
 #define INT_SPI3                 67 // SPI3 global interrupt
 #define INT_UART4_EXTI34         68 // UART4 global and EXTI Line 34 interrupts
 #define INT_UART5_EXTI35         69 // UART5 global and EXTI Line 35 interrupts
@@ -73,15 +73,15 @@
 #define INT_DMA2_CH4             75 // DMA2 channel 4 global interrupt
 #define INT_DMA2_CH5             76 // DMA2 channel 5 global interrupt
 #define INT_ADC4                 77 // ADC4 global interrupt
-// 78, 79: RESERVED
+// 78, 79: reserved
 #define INT_COMP123              80 // COMP1 & COMP2 & COMP3 interrupts & EXTI Lines 21, 22 and 29
 #define INT_COMP456              81 // COMP4 & COMP5 & COMP6 interrupts & EXTI Lines 30, 31 and 32
 #define INT_COMP7                82 // COMP7 interrupt combined with EXTI Line 33 interrupt
-// 83 - 89: RESERVED
+// 83 - 89: reserved
 #define INT_USB_HP_REMAP         90 // USB High priority interrupt (after remap)
 #define INT_USB_LP_REMAP         91 // USB Low priority interrupt (after remap)
 #define INT_USB_WKUP_REMAP       92 // USB wake up from Suspend and EXTI Line 18 (after remap)
-// 94 - 96: RESERVED
+// 94 - 96: reserved
 #define INT_FPU                  97 // Floating point interrupt
 
 

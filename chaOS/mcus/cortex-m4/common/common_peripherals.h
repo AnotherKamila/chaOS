@@ -27,5 +27,9 @@ enum STK_CALIB_bits {
     CALIB_SKEW        = 30,
 };
 
+/* --- Cortex M0 peripherals declaration ---------------------------------------------------------*/
+
+extern STK_struct  * const STK;
+
 
 #endif

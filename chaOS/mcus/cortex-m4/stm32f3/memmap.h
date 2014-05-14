@@ -29,10 +29,5 @@
 
 #define RCC_AHB1_OFFSET         0x00001000
 
-/* --- Peripherals declaration -------------------------------------------------------------------*/
-
-extern GPIO_struct * const GPIO[];
-extern RCC_struct  * const RCC;
-
 
 #endif
