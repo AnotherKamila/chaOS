@@ -28,7 +28,7 @@ static void bullshit(void) {
 
     extern int do_spawn(program_img*);
     program_img program = { .img = (void*)FROM_ADDR };
-    do_spawn(&program);
+    // do_spawn(&program);
 }
 /* --- here it ends ----------------------------------------------------------------------------- */
 

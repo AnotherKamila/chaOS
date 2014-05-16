@@ -1,7 +1,7 @@
 /* defines MCU peripherals and related things like flags */
 
-#ifndef MCUS_CORTEXM0_STM32F0_PERIPHERALS_H
-#define MCUS_CORTEXM0_STM32F0_PERIPHERALS_H
+#ifndef MCUS_CORTEXM4_STM32F3_PERIPHERALS_H
+#define MCUS_CORTEXM4_STM32F3_PERIPHERALS_H
 
 
 #include "core.h"
@@ -22,10 +22,11 @@ typedef struct {
     _IO uint32_t AHBRSTR;  // AHB peripheral reset register          offset 0x28
     _IO uint32_t CFGR2;    // clock configuration register 2         offset 0x2C
     _IO uint32_t CFGR3;    // clock configuration register 3         offset 0x30
-    _IO uint32_t CR2;      // clock control register 2               offset 0x34
 } RCC_struct;
 
 enum RCC_AHBENR_bits {
+    AHBENR_ADC32EN = 29,
+    AHBENR_ADC12EN = 28,
     AHBENR_TSCEN   = 24,
     AHBENR_IOPFEN  = 22,
     AHBENR_IOPEEN  = 21,
@@ -36,7 +37,8 @@ enum RCC_AHBENR_bits {
     AHBENR_CRCEN   = 6,
     AHBENR_FLITFEN = 4,
     AHBENR_SRAMEN  = 2,
-    AHBENR_DMAEN   = 0,
+    AHBENR_DMA2EN  = 1,
+    AHBENR_DMA1EN  = 0,
 };
 
 /* --- GPIO ------------------------------------------------------------------------------------- */

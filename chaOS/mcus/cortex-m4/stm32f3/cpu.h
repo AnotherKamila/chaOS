@@ -1,7 +1,7 @@
-/* CPU-specific information (STM32F0) */
+/* CPU-specific information (STM32F3) */
 
-#ifndef DEVICES_STM32F0_CPU_H
-#define DEVICES_STM32F0_CPU_H
+#ifndef DEVICES_STM32F3_CPU_H
+#define DEVICES_STM32F3_CPU_H
 
 
 // all general-purpose registers, plus sp, lr, pc
@@ -11,7 +11,7 @@
 // see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
 #define ARM_BLX_SHIT  1
 
-//SysTick feature is optional, STM32F0 MCUs do have it.
 #define HAS_SYSTICK  1
+
 
 #endif

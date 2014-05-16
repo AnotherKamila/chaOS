@@ -3,7 +3,7 @@
 #include "kernel/mm/mm.h"
 #include "string.h"
 
-// align x to up to the nearest multiple of `to`; `to` must be a power of 2
+// align x up to the nearest multiple of `to`; `to` must be a power of 2
 #define ALIGN(to, x)  ((x+(to)-1) & ~((to)-1))
 
 intern bool is_elf_x(ELF32_hdr *hdr) {
@@ -75,6 +75,6 @@ int load_elf(const program_img *prg, exec_img *res) {
         }
     }
 
-    res->entry = _tofunc(to_addr + hdr->e_entry); // traces of my poor man's relocation too
+    res->entry = _tofunc(to_addr + hdr->e_entry);
     return 0;
 }
