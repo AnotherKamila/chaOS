@@ -10,6 +10,8 @@
 
 #include "systick.h"
 
+// TODO this may be buggy as hell! Only `set_interrupt_pending` was tested
+
 /*
  * For interrupt numbering convention read comments and links in system_interrupts.h
  */
@@ -96,7 +98,7 @@ bool is_interrupt_pending(const int interrupt) {
     }
 }
 
-void set_interrupt_pending(const bool pending, const int interrupt) {
+void set_interrupt_pending(const int interrupt, const bool pending) {
     check_range(interrupt);
     if (IS_IRQ(interrupt)) {
         if (pending) {
@@ -112,16 +114,16 @@ void set_interrupt_pending(const bool pending, const int interrupt) {
     } else {
         switch (interrupt) {
             case INT_NMI:
-                if (pending) SCB->ICSR |= (1 << ICSR_NMIPENDSET);
+                if (pending) SCB->ICSR = (1 << ICSR_NMIPENDSET);
                 else chaos("trying to clear pending state of NMI");
                 break;
             case INT_SYSTICK:
-                if (pending) SCB->ICSR |= (1 << ICSR_PENDSTSET);
-                else SCB->ICSR |= (1 << ICSR_PENDSTCLR);
+                if (pending) SCB->ICSR = (1 << ICSR_PENDSTSET);
+                else SCB->ICSR = (1 << ICSR_PENDSTCLR);
                 break;
             case INT_PENDSV:
-                if (pending) SCB->ICSR |= (1 << ICSR_PENDSVSET);
-                else SCB->ICSR |= (1 << ICSR_PENDSVCLR);
+                if (pending) SCB->ICSR = (1 << ICSR_PENDSVSET);
+                else SCB->ICSR = (1 << ICSR_PENDSVCLR);
                 break;
         }
     }
