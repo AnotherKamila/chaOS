@@ -15,5 +15,8 @@
 
 #define byte  char // to be used with signed/unsigned (that's why it isn't a typedef)
 
+static inline int min(const int a, const int b) { return (a < b) ? a : b; }
+static inline int max(const int a, const int b) { return (a < b) ? b : a; }
+
 
 #endif

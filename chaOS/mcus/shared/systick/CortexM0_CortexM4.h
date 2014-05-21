@@ -10,8 +10,8 @@
 #define SYSTICK_VAL_OUT_OF_RANGE    3
 
 enum SysTick_clocksrc {
-    SysTick_external_clock  = 0,
-    SysTick_processor_clock = 1,
+    SYSTICK_CLOCK_EXTERNAL  = 0,
+    SYSTICK_CLOCK_PROCESSOR = 1,
 };
 
 #define SYSTICK_FLAG_ENABLED        1
