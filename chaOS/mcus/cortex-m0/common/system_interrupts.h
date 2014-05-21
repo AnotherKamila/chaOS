@@ -19,5 +19,9 @@
 #define _IRQ_OFFSET    16  // used internally by the interrupt controller driver
 #define _EXN_MAX       47  // maximum Cortex M0 exception number (higher numbers are futile!)
 
+/*
+ * To get IRQ number from interrupt number use interrupt_number - _IRQ_OFFSET
+ */
+
 
 #endif
