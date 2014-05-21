@@ -1,7 +1,7 @@
 /* defines memory map and declares peripherals */
 
-#ifndef MCUS_CORTEXM0_STM32F0_MEMMAP_H
-#define MCUS_CORTEXM0_STM32F0_MEMMAP_H
+#ifndef MCUS_CORTEXM4_STM32F3_MEMMAP_H
+#define MCUS_CORTEXM4_STM32F3_MEMMAP_H
 
 
 #include "peripherals.h"
@@ -12,9 +12,11 @@
 
 /* --- Buses base addresses ----------------------------------------------------------------------*/
 
-#define  APB_PERIPH_BASE        (PERIPH_BASE)
+#define APB1_PERIPH_BASE        (PERIPH_BASE)
+#define APB2_PERIPH_BASE        (PERIPH_BASE + 0x00010000)
 #define AHB1_PERIPH_BASE        (PERIPH_BASE + 0x00020000)
 #define AHB2_PERIPH_BASE        (PERIPH_BASE + 0x08000000)
+#define AHB3_PERIPH_BASE        (PERIPH_BASE + 0x10000000)
 
 /* --- Peripheral address offsets ----------------------------------------------------------------*/
 
