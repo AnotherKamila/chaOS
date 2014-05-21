@@ -81,7 +81,7 @@ bool is_interrupt_pending(const int interrupt);
  *                   `Reset` and `SVCall` (and if `pending` is false also except `NMI`).
  *                   On systems lacking SysTick also except `SysTick`.
  */
-void set_interrupt_pending(const bool pending, const int interrupt);
+void set_interrupt_pending(const int interrupt, const bool pending);
 
 /**
  * Sets priority of interrupt.
