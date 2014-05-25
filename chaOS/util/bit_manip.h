@@ -21,7 +21,11 @@
 #define MOD4(x) ((x) & 0x3)
 #define MUL8(x) ((x) << 3)
 
+// align x up to the nearest multiple of `to`; `to` must be a power of 2
+#define ALIGN(to, x)  ((x+(to)-1) & ~((to)-1))
+
 uint32_t bits_stretch(uint32_t x);
 uint32_t bits_expand(uint32_t x);
+
 
 #endif

@@ -8,14 +8,13 @@
  * time complexity: malloc in O(N) where N is the number of all blocks; free in O(1)
  */
 
-#include "kernel/panic.h"
-
 #include "mm.h"
+#include "kernel/panic.h"
+#include "util/bit_manip.h"
 
 /* === kmalloc/kfree ============================================================================ */
 
 #define UNIT      4u // smallest allocation unit (4 bytes)
-#define ALIGN(x)  ((x+(UNIT-1)) & ~(UNIT-1)) // round up to the nearest multiple of 4
 
 typedef uint32_t moff_t;
 #define MHDR_SZ   ((moff_t)(sizeof (mhdr_t)))
@@ -24,8 +23,8 @@ typedef uint32_t moff_t;
 
 extern const byte _kernel_end;  // linker-supplied address -- end of static kernel structures in RAM
 extern const byte _stack_limit; // linker-supplied address -- above there be dragons (eh, stack)
-#define mem_start  ((uintptr_t)(ALIGN((size_t)(&_kernel_end)))) // start of managed memory
-#define mem_size   ((moff_t)(ALIGN((size_t)(&_stack_limit) - (size_t)(&_kernel_end)))) // size of managed memory
+#define mem_start  ((uintptr_t)(ALIGN(UNIT, (size_t)(&_kernel_end)))) // start of managed memory
+#define mem_size   ((moff_t)(ALIGN(UNIT, (size_t)(&_stack_limit) - (size_t)(&_kernel_end)))) // size of managed memory
 
 typedef uint32_t* mhdr_t;
 intern mhdr_t hdr_at(const moff_t addr) { return (uint32_t*)(mem_start + addr); }
@@ -59,7 +58,7 @@ intern void defrag_at(const moff_t start) {
 
 void *kmalloc(size_t sz) {
     if (sz == 0) return NULL;
-    moff_t size = ALIGN(sz);
+    moff_t size = ALIGN(UNIT, sz);
 
     // find the best fitting free block
     moff_t best_addr;

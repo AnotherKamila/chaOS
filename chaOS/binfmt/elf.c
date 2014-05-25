@@ -2,9 +2,7 @@
 #include "binfmt/common.h"
 #include "kernel/mm/mm.h"
 #include "string.h"
-
-// align x up to the nearest multiple of `to`; `to` must be a power of 2
-#define ALIGN(to, x)  ((x+(to)-1) & ~((to)-1))
+#include "util/bit_manip.h"
 
 intern bool is_elf_x(ELF32_hdr *hdr) {
     return hdr->e_ident[0] == EID0 &&
@@ -46,7 +44,7 @@ int load_elf(const program_img *prg, exec_img *res) {
         }
     }
     const uintptr_t to_addr = (uintptr_t)kmalloc(size);
-    res->begin = (void*)to_addr; res->end = (void*)(to_addr + size);
+    res->start = (void*)to_addr; res->end = (void*)(to_addr + size);
 
     // pass 2: relocate GOT, prepare .bss, load .text and .data
     for (int sec_idx = 0; sec_idx < hdr->e_shnum; ++sec_idx) {
