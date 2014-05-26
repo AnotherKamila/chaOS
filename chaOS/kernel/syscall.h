@@ -34,5 +34,12 @@
         int _sysc ## num (void) __attribute((alias("do_" #name)));                                 \
         intern const int _SYSC_N_ ## name = num
 
+#define _SYSCALL_R_NUM   "r10"
+#define _SYSCALL_R_ARG1  "r4"
+#define _SYSCALL_R_ARG2  "r5"
+#define _SYSCALL_R_ARG3  "r6"
+#define _SYSCALL_R_ARG4  "r7"
+#define _SYSCALL_R_ARG5  "r8"
+
 
 #endif

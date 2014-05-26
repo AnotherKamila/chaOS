@@ -1,58 +1,107 @@
 #include "scheduler.h"
-#include "core.h"
+#include "stack_manip.h"
+#include "kernel/isr.h"
+#include "common_drivers/systick.h"
+#include "common_drivers/nvic.h"
+
+#define TICKS  1000000 // determines how fast a task switch happens; for now in arbitrary units :D
+
+intern void *_fromfunc(void func(void)) {
+    // TODO last bit
+    return (void*)(uint32_t)func; // double cast to avoid warning (I know I'm being mean here)
+}
+
+intern pid_t current_process;
+pid_t sched_get_current_process(void) { return current_process; }
 
 // idle process -- kind of a sentinel
-void idle_process(void) {
-    while (true) ;
-}
-word idle_process_stack[8]; // TODO find out how much stack is needed to make it function properly
-
+intern void idle_process(void) __attribute__((naked,noreturn));
+intern void idle_process(void) { __asm__ volatile ("nop"); while (true) ; } // TODO sleep instead
+intern word idle_process_stack[32]; // TODO find out how much stack is needed to make it function properly
+                             // note: probably 16 words -- sizeof(registers_frame_hw_t)+sizeof(registers_frame_sw_t)
 void sched_init(void) {
-    // insert the idle process as process 0
-    process_table[0] = {
-        .p = { .pc = idle_process, .sp = idle_process_stack+8 },
+    process idle = {
+        .mem_start = NULL, .sp = idle_process_stack+31,
         .pid = 0, .parent = 0, .pflags = PFLAG_ALIVE | PFLAG_USED,
     };
-    // TODO configure systick :D
+    prepare_task_stack(&idle.sp, _fromfunc(idle_process), NULL);
+    set_psp(idle.sp);
+    process_table[0] = idle;
+    max_running_pid = 0;
+    current_process = PID_NONE;
+
+    systick_config(SYSTICK_CLOCK_PROCESSOR, true);
+    systick_set_top(TICKS);
 }
 
-intern pid_t current_task = 0;
+void sched_run() {
+    systick_enable();
+    set_interrupt_pending(INT_SYSTICK, true);
+}
 
+// TODO should this go into process.[hc] instead?
 intern bool is_runnable(pid_t pid) {
     // TODO will need more once tasks can block or sleep
-    return (process_table[i].pflags & PFLAG_USED) && (process_table[i].pflags && PFLAG_ALIVE);
+    return (process_table[pid].pflags & PFLAG_USED) && (process_table[pid].pflags & PFLAG_ALIVE);
 }
 
 // the actual scheduler algorithm: task selection happens here
 // a simple round robin scheme is used here
-// I suck so much that it is O(N) where N is the total number of processes -- TODO :D
-intern void switch_task(void) {
-    // TODO it is quite possible that some state needs to be saved manually here
-    if (max_running_pid == 0) context_switch(0); // no running tasks -- switch to the idle task
-    pid_t i = current_task;
-    pid_t next = 0; // if no runnable task is found below, the idle task will be run
+pid_t select_next_task() {
+    pid_t next = (current_process == -1 ? 0 : current_process);
     do {
-        ++i; if (i == max_running_pid) i = 1; // skip the idle process (0)
-        if (is_runnable(i)) next = i;
-    } while (i != current_task);
-
-    context_switch(next);
+        ++next; if (next > max_running_pid) next = 1; // skip the idle process (0)
+        if (is_runnable(next)) return next;
+    } while (next != current_process);
+    return 0; // if no runnable process was found above, run the idle process
 }
 
-pid_t sched_get_current_process(void) {
-    return current_task;
+// TODO switch_task() & co should be in process, not here
+// handles switching stacks and restoring registers
+// will only work when used as an ISR
+// void INTFN(INT_SYSTICK)(void) __attribute__((interrupt, naked, optimize("omit-frame-pointer")));
+void INTFN(INT_SYSTICK)(void) __attribute__((interrupt, optimize("omit-frame-pointer"), naked, flatten));
+void INTFN(INT_SYSTICK)(void) {
+    if (current_process != PID_NONE) {
+        SAVE_CONTEXT();
+        process_table[current_process].sp = get_psp();
+    }
+    current_process = select_next_task();
+    set_psp(process_table[current_process].sp);
+    LOAD_CONTEXT();
+    EXC_RET_TO_THREAD();
 }
+
+// task switching should happen on SysTick interrupt (preemption) and PendSV (cooperative)
+// void INTFN(INT_SYSTICK) __attribute__((alias("switch_task")));
+// void INTFN(INT_PENDSV)  __attribute__((alias("switch_task")));
+
+
+//     process_table[current_process].p.sp = get_psp();
+//     pid_t next = select_next_task();
+//     // switch_to_thread_stack();
+//     set_psp(process_table[next].p.sp);
+// }
+
+
+// ISR(INT_SYSTICK) {
+//     if (current_process != -1) save_registers();
+//     switch_task();
+//     *stack = THREAD_RETURN;
+//     load_registers();
+// }
+// // TODO make pendsv handler an alias for this
+
+// ISR(INT_PENDSV) { // switch task
+//     save_registers();
+//     // stack = (word*)get_msp();
+//     __asm__ volatile ( "MRS %[stack], MSP" : [stack] "=r" (stack) );
+//     switch_task();
+//     instruction_sync_barrier();
+//     load_registers();
+// }
 
 void sched_run_next_task(void) {
-    // TODO reset timer, as this function may be called anytime
-    switch_task();
+    set_interrupt_pending(INT_SYSTICK, true);
 }
 
-void sched_run() {
-    // TODO enable systick
-    switch_task();
-}
-
-ISR(INT_SYSTICK) {
-    switch_task();
-}

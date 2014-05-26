@@ -1,5 +1,5 @@
-MAIN    = syscalls.elf
-TO_ADDR = 0x8008000
+TO_ADDR_ON  = 0x8008000
+TO_ADDR_OFF = 0x8009000
 
 CPU       = cortex-m0
 LDSCRIPT  = ../chaos-executable.ld
@@ -18,16 +18,17 @@ LDFLAGS += -pie
 
 # --------------------------------------------------------
 
-default: $(MAIN)
+default: on.elf off.elf
 
-$(MAIN): $(MAIN:.elf=.o)
+%.elf: %.o
 	$(LD) $(LDFLAGS) -o $@ $<
 	# $(OBJCOPY) --strip-all -R .ARM.attributes $@
 	$(OBJCOPY) --strip-debug -R .ARM.attributes $@
-	$(SIZE) $(MAIN)
+	$(SIZE) $@
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
-flash: $(MAIN)
-	st-flash write $(MAIN) $(TO_ADDR)
+flash: on.elf off.elf
+	st-flash write on.elf  $(TO_ADDR_ON)
+	st-flash write off.elf $(TO_ADDR_OFF)

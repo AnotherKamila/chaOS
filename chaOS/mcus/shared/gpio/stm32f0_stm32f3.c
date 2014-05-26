@@ -22,7 +22,7 @@ uint32_t GPIO_enable() {
 uint32_t GPIO_enable_port(const unsigned int port) {
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
 
-    bit_mon(RCC->AHBENR, port_enable_bit[port]);
+    bits_on(RCC->AHBENR, port_enable_bit[port]);
     return GPIO_SUCCESS;
 }
 
@@ -48,8 +48,8 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     //TODO disable interrupts
     uint32_t moder = GPIO[port]->MODER;
-    bit_moff(moder, bit_mask); // Reset required pins
-    bit_mon(moder, settings_mask); // Apply settings mask
+    bits_off(moder, bit_mask); // Reset required pins
+    bits_on(moder, settings_mask); // Apply settings mask
     GPIO[port]->MODER = moder;
     //TODO enable interrupts
 
@@ -58,11 +58,11 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     if ((mode_flags & GPIO_OUTPUT) && (mode_flags & GPIO_OPENDRAIN)) {
         //TODO disable interrupts
-        bit_mon(GPIO[port]->OTYPER, pins);
+        bits_on(GPIO[port]->OTYPER, pins);
         //TODO enable interrupts
     } else {
         //TODO disable interrupts
-        bit_moff(GPIO[port]->OTYPER, pins);
+        bits_off(GPIO[port]->OTYPER, pins);
         //TODO enable interrupts
     }
 
@@ -83,8 +83,8 @@ uint32_t GPIO_set_pins_mode(const unsigned int port, const uint32_t pins,
 
     //TODO disable interrupts
     uint32_t pupdr = GPIO[port]->PUPDR;
-    bit_moff(pupdr, bit_mask); // reset required pins
-    bit_mon(pupdr, settings_mask); // apply settings mask
+    bits_off(pupdr, bit_mask); // reset required pins
+    bits_on(pupdr, settings_mask); // apply settings mask
     GPIO[port]->PUPDR = pupdr;
     //TODO enable interrupts
 
@@ -101,9 +101,9 @@ uint32_t GPIO_write(const unsigned int port, const uint32_t pins, const uint32_t
 
     uint32_t sr = 0;
     // writing 1 to lower 16 bits of BSRR controls which pins should be turned on
-    bit_mon(sr, values & pins);
+    bits_on(sr, values & pins);
     // writing 1 to higher 16 bits of BSRR controls which pins should be turned off
-    bit_mon(sr, (~values & pins) << 16);
+    bits_on(sr, (~values & pins) << 16);
     GPIO[port]->BSRR = sr;
     return GPIO_SUCCESS;
 }

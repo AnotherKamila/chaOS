@@ -2,6 +2,8 @@
 #define KERNEL_PROCESS_SCHEDULER_H
 
 
+#include "process.h"
+
 /** Initializes the scheduler. Should be called before any tasks exist. */
 void sched_init(void);
 

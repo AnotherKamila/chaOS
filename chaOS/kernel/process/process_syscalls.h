@@ -5,7 +5,7 @@
 #include "process.h"
 #include "binfmt/common.h"
 
-int do_spawn(program_img *file);
+int do_spawn(const program_img *file);
 int do_exit(int status);
 
 #if HELL_FREEZES

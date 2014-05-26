@@ -1,6 +1,3 @@
-// TODO this whole thing needs to be re-thought
-// TODO get a header file :D
-
 #include "syscall.h"
 #include "core.h"
 #include "kernel/isr.h"
@@ -22,7 +19,7 @@ intern int (* const syscalls_table[])(void) = {
 };
 
 ISR(INT_SVCALL) {
-    register int r0 __asm__("r0"); // r0 is used to pass the syscall number
+    register int num __asm__(_SYSCALL_R_NUM); // load the syscall number from the appropriate register
     // TODO arguments
-    syscalls_table[r0]();
+    syscalls_table[num]();
 }

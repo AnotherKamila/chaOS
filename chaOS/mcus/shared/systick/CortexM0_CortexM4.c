@@ -49,8 +49,8 @@ int systick_config(const enum SysTick_clocksrc clock, const bool do_interrupt) {
     systick_set_top(0);
     systick_write(0);
 
-    bit_moff(csr_local, (1 << CSR_CLKSOURCE) | (1 << CSR_TICKINT));
-    bit_mon(csr_local, (clock << CSR_CLKSOURCE) | (((uint32_t)do_interrupt) << CSR_TICKINT));
+    bits_off(csr_local, (1 << CSR_CLKSOURCE) | (1 << CSR_TICKINT));
+    bits_on(csr_local, (clock << CSR_CLKSOURCE) | (((uint32_t)do_interrupt) << CSR_TICKINT));
 
     STK->CSR = csr_local;
 
@@ -58,7 +58,7 @@ int systick_config(const enum SysTick_clocksrc clock, const bool do_interrupt) {
 }
 
 void systick_disable_interrupt() {
-    bit_moff(csr_local, (1 << CSR_TICKINT));
+    bits_off(csr_local, (1 << CSR_TICKINT));
     STK->CSR = csr_local;
 }
 
@@ -67,13 +67,13 @@ bool systick_is_interrupt_enabled() {
 }
 
 int systick_enable() {
-    bit_mon(csr_local, (1 << CSR_ENABLE));
+    bits_on(csr_local, (1 << CSR_ENABLE));
     STK->CSR = csr_local;
     return SYSTICK_SUCCESS;
 }
 
 int systick_disable() {
-    bit_moff(csr_local, (1 << CSR_ENABLE));
+    bits_off(csr_local, (1 << CSR_ENABLE));
     STK->CSR = csr_local;
     return SYSTICK_SUCCESS;
 }
