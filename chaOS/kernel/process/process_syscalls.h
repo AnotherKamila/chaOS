@@ -1,3 +1,6 @@
+// TODO this file is not supposed to exist -- process_syscalls.c should include inc/syscalls.h, but
+// that requires syscalls with arguments
+
 #ifndef KERNEL_PROCESS_SYSCALLS
 #define KERNEL_PROCESS_SYSCALLS
 

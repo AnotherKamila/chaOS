@@ -10,6 +10,12 @@ void *get_psp(void);
 /** Loads the PSP with the given value. */
 void set_psp(void* new_sp);
 
+/**
+ * creates initial frames for saved registers on the stack, and moves the stack pointer
+ * appropriately
+ */
+void prepare_task_stack(void **sp, void *start, void at_end(void));
+
 // see Figure 9 (Cortex-M0 stack frame layout) on page 26 of the Cortex-M0 programming manual
 typedef struct {
     word r0;
@@ -66,11 +72,6 @@ typedef struct {
  */
 #define THREAD_RETURN  0xFFFFFFFD // magic: causes return to thread mode when loaded into pc
 #define EXC_RET_TO_THREAD()  __asm__ volatile ("BX %[tr]\n\t" :: [tr] "r" (THREAD_RETURN))
-
-/**
- * creates initial frames for saved registers on the stack, and moves the stack pointer appropriately
- */
-void prepare_task_stack(void **sp, void *start, void *at_end);
 
 
 #endif

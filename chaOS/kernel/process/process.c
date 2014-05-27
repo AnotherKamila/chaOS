@@ -1,19 +1,13 @@
 #include "process.h"
 #include "scheduler.h"
 #include "kernel/mm/mm.h"
-#include "stack_manip.h"
+#include "context_switching.h"
 #include "util/bit_manip.h"
 
 process process_table[DEFAULT_PROCESS_TABLE_SIZE]; // TODO malloc this if it needs to be resizable
 pid_t current_process;
 int current_process_table_size = DEFAULT_PROCESS_TABLE_SIZE;
 int max_running_pid;
-
-intern void *_fromfunc(void func(void)) {
-// hopefully the compiler knows about the last bit of the function address... TODO make sure :D
-    return (void*)(uint32_t)func; // double cast to avoid warning (I know I'm being mean here)
-    // TODO maybe I'd be better off avoiding the nasty cast
-}
 
 void del_current_process() {
     pid_t pid = current_process;
@@ -44,7 +38,7 @@ pid_t new_process(const exec_img *ximg, pid_t parent) {
         .parent    = parent,
         .pflags    = PFLAG_ALIVE | PFLAG_USED,
     };
-    prepare_task_stack(&newp.sp, ximg->entry, _fromfunc(del_current_process));
+    prepare_task_stack(&newp.sp, ximg->entry, del_current_process);
     process_table[pid] = newp;
     max_running_pid = max(pid, max_running_pid);
 

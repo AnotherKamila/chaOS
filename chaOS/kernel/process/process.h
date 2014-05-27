@@ -1,5 +1,4 @@
 /* process management */
-// see process-notes.txt
 
 #ifndef KERNEL_PROCESS_H
 #define KERNEL_PROCESS_H
@@ -20,8 +19,8 @@ typedef struct {
     union {
         struct { // live_process
             void *sp; // updated when context switching
-            // other state is not necessary, as everything else (including the PC) is on the stack
-            void* mem_start;
+            // other state is not necessary, as everything else (including the pc) is on the stack
+            void *mem_start;
             // TODO process state should be here
             // one day stuff like open resources, scheduler info etc might appear here
         };
