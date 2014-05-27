@@ -15,7 +15,7 @@ int do_spawn(const program_img *file) {
     int r = load_elf(file, &ximg); // currently only ELF executables are supported
     if (r) return -1; // TODO errno
 
-    return new_process(&ximg, sched_get_current_process());
+    return new_process(&ximg, current_process);
 }
 
 // TODO (somehow) make *absolutely* sure everyone executes exit()!

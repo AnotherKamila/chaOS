@@ -15,6 +15,7 @@ void _start(void) __attribute__((noreturn));
 /* --- here starts bullshit --------------------------------------------------------------------- */
 #define FROM_ADDR_1  (FLASH_BASE + 0x8000)
 #define FROM_ADDR_2  (FLASH_BASE + 0x9000)
+#define FROM_ADDR_3  (FLASH_BASE + 0xA000)
 #include "binfmt/common.h"
 
 static void bullshit(void) {
@@ -23,6 +24,8 @@ static void bullshit(void) {
     do_spawn(&prg1);
     program_img prg2 = { .img = (void*)FROM_ADDR_2 };
     do_spawn(&prg2);
+    program_img prg3 = { .img = (void*)FROM_ADDR_3 };
+    do_spawn(&prg3);
 }
 /* --- here it ends ----------------------------------------------------------------------------- */
 

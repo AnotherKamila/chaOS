@@ -35,6 +35,7 @@ typedef struct {
 } process;
 
 extern process process_table[DEFAULT_PROCESS_TABLE_SIZE];
+extern pid_t current_process;
 extern int current_process_table_size;
 extern int max_running_pid;
 

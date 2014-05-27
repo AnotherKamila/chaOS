@@ -11,9 +11,6 @@ intern void *_fromfunc(void func(void)) {
     return (void*)(uint32_t)func; // double cast to avoid warning (I know I'm being mean here)
 }
 
-intern pid_t current_process;
-pid_t sched_get_current_process(void) { return current_process; }
-
 // idle process -- kind of a sentinel
 intern void idle_process(void) __attribute__((naked,noreturn));
 intern void idle_process(void) { __asm__ volatile ("nop"); while (true) ; } // TODO sleep instead
@@ -31,6 +28,7 @@ void sched_init(void) {
     current_process = PID_NONE;
 
     systick_config(SYSTICK_CLOCK_PROCESSOR, true);
+    set_interrupt_priority(255, INT_SYSTICK);
     systick_set_top(TICKS);
 }
 

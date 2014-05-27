@@ -5,6 +5,7 @@
 #include "util/bit_manip.h"
 
 process process_table[DEFAULT_PROCESS_TABLE_SIZE]; // TODO malloc this if it needs to be resizable
+pid_t current_process;
 int current_process_table_size = DEFAULT_PROCESS_TABLE_SIZE;
 int max_running_pid;
 
@@ -15,9 +16,10 @@ intern void *_fromfunc(void func(void)) {
 }
 
 void del_current_process() {
-    pid_t pid = sched_get_current_process();
-    kfree(process_table[pid].mem_start);
+    pid_t pid = current_process;
     bits_off(process_table[pid].pflags, PFLAG_ALIVE);
+    current_process = PID_NONE;
+    kfree(process_table[pid].mem_start);
     if (pid == max_running_pid) { // update max_running_pid if necessary
         while (!process_table[max_running_pid].pflags & PFLAG_ALIVE) --max_running_pid;
     }
