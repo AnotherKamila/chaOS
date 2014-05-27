@@ -9,37 +9,17 @@ Introducing:
 
 **The useless, ugly and pointless OS (will-have-been-)made by a kid who thinks she's cool**
 
-The plan:
----------
+It's almost over! :D
 
-I will target ARM Cortex-M0, because it is not too simple (i.e. scary enough to look like the real thing) and still better than Intel/AMD.
-For now no multitasking or anything is planned, I will be satisfied if I can run a nice binary in user mode with syscalls (where by "nice" I mean compiled for this thing instead of bare metal).
+The state right now:
 
-Later I might add some form of (preemptive) multitasking => real memory management, a scheduler, peripherals management and who knows what else. At this stage I will probably decide to make it a real-time OS, just because I can. Yes, and one day I might add my own malloc and filesystem (since I am going to code those in school anyway)! And of course create my own libc while we're at it. But most probably I won't.
+- loads (almost-bare-metal) ELF binaries (compiled as PIEs and linked with my ld script)
+- supports syscalls, but right now they can't take arguments (that is a TODO, along with a userspace library :D)
+- preemptive multitasking (with a simple round robin scheduler) (yay!)
+- can be easily ported to (at least) all Cortex MCUs, right now it works on M0 and a port to M4 is on the way
+- written from scratch, including the hardware abstraction layer (CMSIS is slow and ugly!) and the needed parts of libc (why not? :D)
 
-Progress:
----------
-
-It can load (almost-bare-metal) ELF binaries and run them (but only from a fixed address - PIEs are a TODO). I need sleep.
-
-How to add support for other ARM CPUs
--------------------------------------
-
-**this section is out of date and I should go to sleep now, will fix ASAP**
-
-For basic support three files need to be added:
-
-- ld script (`devices/<CPU>.ld`): specifies memory layout
-- CPU-specific header with constants, register mappings, peripherals etc. (`devices/<CPU>.h`)
-- ISR vector table layout (`devices/<CPU>-isr_vector.c`)
-
-See `devices/stm32f0*` for examples.
-
-`make` then needs to be called specifying the CPU and (optionally) CPU family (like `make CPUFAMILY=cortex-m0 CPU=stm32f0`, which are the defaults).
-
-Of course, every MCU has a different set of peripherals accessed in different ways. Once I actually need to support more MCUs, I will specify how to make CPU-specific peripherals drivers.
-
-Side note: I have not tested it :D (But it seems to at least compile cleanly for different families.)
+The truth: it can blink LEDs and needs only 1805 SLOC to do that! :P
 
 ----------------------------------------------------------------------------
 
@@ -64,30 +44,32 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
    - write a correct ld script  **✔**
    - avoid the library (note: is that NIH or is it actually a good idea for a change?)  **✔**
  - communication with SD card
- - stop ignoring processor startup procedure at some point
-
 ...
 
  - make a separate binary (ELF), get it in there, parse it and run it  **✔**
  - non-preemptive multitasking that actually works (i.e. deals correctly with the stack, etc.)
  - run PIEs  **✔**
  - crosscompiler for chaOS target (`arm-chaos-eabi-*`) - see http://wiki.osdev.org/OS_Specific_Toolchain
- - syscalls!
- - switch to user mode (but apparently not on this MCU :D)
- - context switching, preemptive multitasking (:D)
+ - syscalls!  **✔** *(sort of)*
+ - context switching, preemptive multitasking **✔!!!**
+ - make it do something cool
 
-### Immediate TODO:
+### issues (TODO move to Github's issues :D)
 
- - malloc
- - throw gpio.h into a black hole
- - tidy up that scary WIP branch, merge what you can, publish it
- - use two separate stacks
+- compile with -Wstrict-aliasing=2 and see what it says
+- add restrict all over the place (specifically: memcpy)
+- const-correctness (but not const-overcorrectness)
+- inc/ subdir is stupid -- move those things somewhere smarter
+- centralized errno.h
+- move isr.h somewhere smart
+- `instruction_sync_barrier` etc does not belong to nvic.h
+- nvic: make interrupt the first parameter everywhere
+- nvic docs don't mention whether smaller numbers are high priority or not
+- maybe: use forward declarations for scary structs
+- rename ARM_BLX_SHIT (:D) and make a make_thumb_addr or something
+- static_assert
+- syscalls with arguments => process management syscalls
+- real hardfault handler
+- cslibc: memcpy, memcmp etc need to copy words instead of bytes where they can
 
-### Where to go next
-
- - TODO think about what to think about :D (w/ regards to how I want to use this) \*
- - implement syscalls
- - context switching --> preemptive multitasking! (TODO think about the scheduler -- round robin (perhaps prioritized)?) \*
- - are things like `malloc` or linker in kernel? \*
- - filesystem (sffs -- stupid flash filesystem? i.e. something read-only -- minimum of code & space overhead, zero worrying about SD card, filesystem creation via cat, etc.; and if it is on flash, it doesn't actually need an API, since it's direct memory access :D)
- - init mechanism :D
+- note: when writing stack_manip for M4, use ldm and stm
