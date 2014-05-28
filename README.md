@@ -21,6 +21,8 @@ The state right now:
 
 The truth: it can blink LEDs and needs only 1805 SLOC to do that! :P
 
+Note: the Cortex-M4 tree is out of date and won't compile, I'll fix that when I can.
+
 ----------------------------------------------------------------------------
 
 Unless you are interested in what I think I know and what I think I should do, do not read any further. Also, if you think what I think I know is wrong, please please please let me know.
@@ -71,5 +73,3 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 - syscalls with arguments => process management syscalls
 - real hardfault handler
 - cslibc: memcpy, memcmp etc need to copy words instead of bytes where they can
-
-- note: when writing stack_manip for M4, use ldm and stm
