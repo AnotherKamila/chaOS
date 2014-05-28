@@ -73,5 +73,8 @@ typedef struct {
 #define THREAD_RETURN  0xFFFFFFFD // magic: causes return to thread mode when loaded into pc
 #define EXC_RET_TO_THREAD()  __asm__ volatile ("BX %[tr]\n\t" :: [tr] "r" (THREAD_RETURN))
 
+/** when preparing task stack, use this value to initialize xPSR */
+#define XPSR_DEFAULT  (1<<24) // set the Thumb bit
+
 
 #endif

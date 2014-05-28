@@ -8,10 +8,8 @@
 #define REGISTERS_SET  {r0-r15}
 #define NUM_REGISTERS  16
 
-// see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
-#define ARM_BLX_SHIT  1
-
 //SysTick feature is optional, STM32F0 MCUs do have it.
 #define HAS_SYSTICK  1
+
 
 #endif

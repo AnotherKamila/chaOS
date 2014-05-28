@@ -68,7 +68,6 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 - nvic: make interrupt the first parameter everywhere
 - nvic docs don't mention whether smaller numbers are high priority or not
 - maybe: use forward declarations for scary structs
-- rename ARM_BLX_SHIT (:D) and make a make_thumb_addr or something
 - static_assert
 - syscalls with arguments => process management syscalls
 - real hardfault handler

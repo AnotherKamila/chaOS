@@ -18,5 +18,11 @@
 #define CORE_PBASE_SCB2_OFFSET      0x0000ED00
 #define CORE_PBASE_NVIC2_OFFSET     0x0000EF00
 
+/* --- memory addresses manipulation ------------------------------------------------------------ */
+
+// see http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204f/Cihfddaf.html
+static inline uintptr_t make_code_addr(uintptr_t addr) {
+    return addr | 0x1; // Thumb mode
+}
 
 #endif

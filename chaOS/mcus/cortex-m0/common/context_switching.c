@@ -1,4 +1,5 @@
 #include "context_switching.h"
+#include "common_memmap.h"
 
 void *get_psp(void) {
     void *ret;
@@ -16,14 +17,12 @@ void prepare_task_stack(void **sp, void *start, void at_end(void)) {
     // hw-saved frame
     newsp -= sizeof(registers_frame_hw_t);
     registers_frame_hw_t* hw_frame = (registers_frame_hw_t*)newsp;
-    hw_frame->pc = (uintptr_t)start | 0x1; // TODO get {,un}make_thumb_addr
-    hw_frame->lr = (uintptr_t)at_end | 0x1; // when the task returns, we will call a routine to free its resources
-    hw_frame->psr = (1<<24);
+    hw_frame->pc = make_code_addr((uintptr_t)start);
+    hw_frame->lr = make_code_addr((uintptr_t)at_end); // when the task returns, we will call a routine to free its resources
+    hw_frame->psr = XPSR_DEFAULT;
 
     // sw-saved frame
     newsp -= sizeof(registers_frame_sw_t);
-    registers_frame_sw_t* sw_frame = (registers_frame_sw_t*)newsp;
-    sw_frame->r7 = 42; sw_frame->r9 = 47; // debug :D
 
     *sp = newsp;
 }

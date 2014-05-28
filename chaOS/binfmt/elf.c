@@ -3,6 +3,7 @@
 #include "kernel/mm/mm.h"
 #include "string.h"
 #include "util/bit_manip.h"
+#include "common_memmap.h"
 
 intern bool is_elf_x(ELF32_hdr *hdr) {
     return hdr->e_ident[0] == EID0 &&
@@ -73,6 +74,6 @@ int load_elf(const program_img *prg, exec_img *res) {
         }
     }
 
-    res->entry = _tofunc(to_addr + hdr->e_entry);
+    res->entry = (void*)make_code_addr(to_addr + hdr->e_entry);
     return 0;
 }
