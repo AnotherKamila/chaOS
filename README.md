@@ -58,6 +58,7 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 
 ### issues (TODO move to Github's issues :D)
 
+- syscalls with arguments => process management syscalls
 - compile with -Wstrict-aliasing=2 and see what it says
 - add restrict all over the place (specifically: memcpy)
 - const-correctness (but not const-overcorrectness)
@@ -65,10 +66,10 @@ No Cortex-M MCUs have an MMU. The M4 is the only one with an MPU (so yes, my cur
 - centralized errno.h
 - move isr.h somewhere smart
 - `instruction_sync_barrier` etc does not belong to nvic.h
-- nvic: make interrupt the first parameter everywhere
-- nvic docs don't mention whether smaller numbers are high priority or not
 - maybe: use forward declarations for scary structs
 - static_assert
-- syscalls with arguments => process management syscalls
 - real hardfault handler
 - cslibc: memcpy, memcmp etc need to copy words instead of bytes where they can
+
+- nvic: make interrupt the first parameter everywhere
+- nvic docs don't mention whether smaller numbers are high priority or not
