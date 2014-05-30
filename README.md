@@ -1,6 +1,4 @@
-Yes, really.
-
-Yes, I know I'm going to fail utterly. Yes, I know it is crazy. Yes, I know I will learn a lot from my mistakes!
+How hard could it be? ;-)
 
 Introducing:
 
@@ -8,8 +6,6 @@ Introducing:
 =====================================================================================
 
 **The useless, ugly and pointless OS (will-have-been-)made by a kid who thinks she's cool**
-
-It's almost over! :D
 
 The state right now:
 
