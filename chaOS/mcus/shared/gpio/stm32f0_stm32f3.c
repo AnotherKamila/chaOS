@@ -115,7 +115,7 @@ uint32_t GPIO_read(const unsigned int port, const uint32_t pins, uint32_t * cons
     return GPIO_SUCCESS;
 }
 
-#if NOT_IMPLEMENTED
+#if HELL_FREEZES
 uint32_t GPIO_extra_action(const unsigned int port, const uint32_t action,
                            uint32_t * const response) {
     if (!in_bounds(port)) return GPIO_PORT_OUT_OF_RANGE;
