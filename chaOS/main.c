@@ -12,7 +12,7 @@ extern byte _sidata, _sdata, _edata, _sbss, _ebss;
 
 void _start(void) __attribute__((noreturn));
 
-/* --- here starts the lame init (TODO get a real userspace init once the spawn syscall works --- */
+/* --- here starts the lame init (TODO get a real userspace init once the spawn syscall works) -- */
 #define FROM_ADDR_1  (FLASH_BASE + 0x8000)
 #define FROM_ADDR_2  (FLASH_BASE + 0x9000)
 #define FROM_ADDR_3  (FLASH_BASE + 0xA000)
